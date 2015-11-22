@@ -1,0 +1,137 @@
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.zf-green {
+	color: #68b604;
+}
+
+.btn-success {
+	background-color: #57a900;
+	background-image: -moz-linear-gradient(top, #70d900, #57a900);
+	background-image: -ms-linear-gradient(top, #70d900, #57a900);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900),
+		to(#57a900));
+	background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+	background-image: -o-linear-gradient(top, #70d900, #57a900);
+	background-image: linear-gradient(top, #70d900, #57a900);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900',
+		endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover, .btn-success:active, .btn-success.active,
+	.btn-success.disabled, .btn-success[disabled] {
+	background-color: #57a900;
+}
+
+.btn-success:active, .btn-success.active {
+	background-color: #57a900;
+}
+
+div.container a.brand {
+	background: url("../img/zf2-logo.png") no-repeat scroll 0 10px
+		transparent;
+	margin-left: 0;
+	padding: 8px 20px 12px 40px;
+}
+
+.div-footer {
+	background-color: rgba(50, 50, 50, 0.6);
+	width: 100%;
+	height: 45px;
+	padding-top: 8px;
+	position: fixed;
+	bottom: 0px;
+}
+
+.div-footer p {
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-family: monospace;
+}
+
+body {
+	background-image: url(../img/background-main.jpg);
+	background-size: 100%;
+}
+
+.content-selection-box {
+	-webkit-box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.5);
+	box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.4);
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+.sm-button-default {
+	display: block;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 4px;
+	height: 32px;
+	border: 1px solid silver;
+	color: silver;
+	width: auto;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+	float: left;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+	background: #aebcbf;
+	background: -moz-linear-gradient(top, #aebcbf 1%, #6e7774 15%, #6e7774 86%, #aebcbf
+		100%);
+	background: -webkit-linear-gradient(top, #aebcbf 1%, #6e7774 15%, #6e7774 86%,
+		#aebcbf 100%);
+	background: linear-gradient(to bottom, #aebcbf 1%, #6e7774 15%, #6e7774 86%, #aebcbf
+		100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf',
+		endColorstr='#aebcbf', GradientType=0);
+	text-shadow: 1px 1px 1px #CFCFCF;
+}
+
+.sm-button-default:hover {
+	text-decoration: none;
+	color: white;
+	border: 1px solid white background: #aebcbf;
+	background: -moz-linear-gradient(top, #aebcbf 1%, #5a605a 15%, #5a605a 82%, #aebcbf
+		100%);
+	background: -webkit-linear-gradient(top, #aebcbf 1%, #5a605a 15%, #5a605a 82%,
+		#aebcbf 100%);
+	background: linear-gradient(to bottom, #aebcbf 1%, #5a605a 15%, #5a605a 82%, #aebcbf
+		100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf',
+		endColorstr='#aebcbf', GradientType=0);
+}
+
+.pull-right {
+	float: right;
+}
+
+@MEDIA ( max-width : 480px) {
+	.test-div {
+		background-color: grey;
+	}
+}
+
+@MEDIA ( min-width :481px) and (max-width: 980px) {
+	.test-div {
+		background-color: blue;
+	}
+}
+
+@MEDIA ( min-width : 980px) {
+	.content-selection-box {
+		width: calc(33% - 20px);
+		padding: 10px;
+		float: left;
+		margin-right: 20px;
+	}
+}
