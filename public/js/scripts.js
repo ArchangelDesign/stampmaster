@@ -7,5 +7,5 @@ $('.slide-out-container').click(function() {
 });
 
 $(document).ready(function() {
-	alert('');
+	//alert('');
 });
