@@ -10,14 +10,23 @@ return array(
             'display-index' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    // Change this to something specific to your module
                     'route'    => '/home',
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
                         '__NAMESPACE__' => 'Display\Controller',
                         'controller'    => 'Display',
                         'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'order-begin' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/order-begin',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Display\Controller',
+                        'controller'    => 'Display',
+                        'action'        => 'orderBegin',
                     ),
                 ),
                 'may_terminate' => true,

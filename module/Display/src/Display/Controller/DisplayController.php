@@ -10,4 +10,9 @@ class DisplayController extends AbstractActionController
     {
         return array();
     }
+
+    public function orderBeginAction()
+    {
+        return array();
+    }
 }
