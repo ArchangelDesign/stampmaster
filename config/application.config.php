@@ -4,7 +4,7 @@ return array (
 		'modules' => array (
 				'ArchangelDB',
 				'Application',
-				'Display','Process', 
+				'Display','Process','Admin', 
 		)
 		,
 		
@@ -17,7 +17,7 @@ return array (
 				'module_paths' => array (
 						'./module',
 						'./vendor',
-						'./module','./module' 
+						'./module','./module','./module' 
 				),
 				
 				// An array of paths from which to glob configuration files after
