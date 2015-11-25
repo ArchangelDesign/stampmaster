@@ -1,27 +1,27 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/Admin for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * Stamp Master
+ * copyright (c) Archangel Design 2015
+ * @author Rafal Martinez-Marjanski
+ * copyright (c) all rights reserved
  */
 
 namespace Admin\Controller;
 
+use Process\StorageProcess;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AdminController extends AbstractActionController
 {
-    public function indexAction()
+    public function dashboardAction()
+    {
+        $storage = new StorageProcess($this->serviceLocator->get('adb'));
+        return array();
+    }
+
+    public function ordersAction()
     {
         return array();
     }
 
-    public function fooAction()
-    {
-        // This shows the :controller and :action parameters in default route
-        // are working when you browse to /admin/admin/foo
-        return array();
-    }
 }
