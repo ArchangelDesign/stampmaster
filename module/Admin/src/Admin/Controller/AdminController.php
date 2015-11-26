@@ -9,14 +9,17 @@
 namespace Admin\Controller;
 
 use Process\StorageProcess;
+use Storage\UserStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AdminController extends AbstractActionController
 {
     public function dashboardAction()
     {
-        $storage = new StorageProcess($this->serviceLocator->get('adb'));
-        return array();
+        $userStorage = new UserStorage($this->serviceLocator->get('adb'));
+        return array(
+            'allUsers' => $userStorage->fetchAllUsers(),
+        );
     }
 
     public function ordersAction()
