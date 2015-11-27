@@ -31,6 +31,18 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'register-user' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/register-user',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Display\Controller',
+                        'controller'    => 'Display',
+                        'action'        => 'registerUser',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'view_manager' => array(

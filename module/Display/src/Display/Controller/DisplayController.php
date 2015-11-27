@@ -15,4 +15,9 @@ class DisplayController extends AbstractActionController
     {
         return array();
     }
+
+    public function registerUserAction()
+    {
+        return array();
+    }
 }
