@@ -1,1 +1,11 @@
 <div>Register user</div>
+
+<?php if (isset($this->outcome)) {
+    var_dump($outcome);
+}
+?>
+
+<form action="<?php echo $this->url('register-user')?>" method="post">
+    <input type="text" name="first_name" placeholder="<?php echo $this->translate('Imię')?>">
+    <input type="submit" value="<?php echo $this->translate('Zarejestruj')?>">
+</form>
