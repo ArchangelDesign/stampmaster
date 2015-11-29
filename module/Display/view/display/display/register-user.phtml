@@ -7,5 +7,8 @@
 
 <form action="<?php echo $this->url('register-user')?>" method="post">
     <input type="text" name="first_name" placeholder="<?php echo $this->translate('Imię')?>">
+    <input type="text" name="last_name" placeholder="<?php echo $this->translate('Nazwisko')?>">
+    <input type="text" name="username" placeholder="<?php echo $this->translate('Nazwa użytkownika')?>" required>
+    <input type="email" name="email" placeholder="<?php echo $this->translate('Email')?>" required>
     <input type="submit" value="<?php echo $this->translate('Zarejestruj')?>">
 </form>
