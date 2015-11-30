@@ -2,15 +2,21 @@
 
 <?php if (isset($this->outcome)) {
     var_dump($outcome);
+
+    if (!$this->outcome['result']) { ?>
+        <div class="alert alert-danger"><?php echo $this->translate($this->outcome['msg']) ?></div>
+    <?php
+    }
 }
 ?>
 
+
 <form action="<?php echo $this->url('register-user')?>" method="post">
-    <input type="text" name="first_name" placeholder="<?php echo $this->translate('Imię')?>">
-    <input type="text" name="last_name" placeholder="<?php echo $this->translate('Nazwisko')?>">
-    <input type="text" name="username" placeholder="<?php echo $this->translate('Nazwa użytkownika')?>" required>
-    <input type="email" name="email" placeholder="<?php echo $this->translate('Email')?>" required>
-    <input type="password" name="password" placeholder="<?php echo $this->translate('Hasło')?>" required>
-    <input type="password" name="password-confirm" placeholder="<?php echo $this->translate('Powtórz hasło')?>" required>
-    <input type="submit" value="<?php echo $this->translate('Zarejestruj')?>">
+    <input type="text" name="first_name" placeholder="<?php echo $this->translate('First name')?>" value="<?php echo $this->userData['first_name']?>">
+    <input type="text" name="last_name" placeholder="<?php echo $this->translate('Last name')?>" value="<?php echo $this->userData['last_name']?>">
+    <input type="text" name="username" placeholder="<?php echo $this->translate('Username')?>" value="<?php echo $this->userData['username']?>" required>
+    <input type="email" name="email" placeholder="<?php echo $this->translate('Email')?>" value="<?php echo $this->userData['email']?>" required>
+    <input type="password" name="password" placeholder="<?php echo $this->translate('Password')?>" required>
+    <input type="password" name="password-confirm" placeholder="<?php echo $this->translate('Confirm password')?>" required>
+    <input type="submit" value="<?php echo $this->translate('Register')?>">
 </form>
