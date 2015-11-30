@@ -23,6 +23,7 @@ class DisplayController extends AbstractActionController
 
         if ($request->isPost()) {
             $userData = $request->getPost();
+            unset($userData['password-confirm']);
             $userStorage = new UserStorage($this->serviceLocator->get('adb'));
             $outcome = $userStorage->registerUser($userData);
             return ['outcome' => $outcome];
