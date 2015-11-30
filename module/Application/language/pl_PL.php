@@ -1,7 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wa-admin
- * Date: 11/30/15
- * Time: 10:47 AM
- */
+
+return [
+    'Exception' =>
+    'Wyjątek',
+
+    'Passwords do not match' =>
+    'Hasła nie zgadzają się',
+
+    'First name' =>
+    'Imię',
+
+    'Last name' =>
+    'Nazwisko',
+
+    'Email' =>
+    'Email',
+
+    'Username' =>
+    'Nazwa użytkownika',
+
+    'Password' =>
+    'Hasło',
+
+    'Confirm password' =>
+    'Powtórz hasło',
+
+    'Register' =>
+    'Zarejestruj'
+];
