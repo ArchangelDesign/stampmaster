@@ -25,6 +25,14 @@ class DisplayController extends AbstractActionController
             'last_name'     => '',
             'email'         => '',
             'username'      => '',
+            'city'          => '',
+            'province'      => '',
+            'zip'           => '',
+            'street'        => '',
+            'apartment'     => '',
+            'shipment'      => '',
+            'company'       => '',
+            'tax_id'        => '',
         ];
 
         if ($request->isPost()) {

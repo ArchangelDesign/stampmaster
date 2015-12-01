@@ -4,19 +4,191 @@
     var_dump($outcome);
 
     if (!$this->outcome['result']) { ?>
-        <div class="alert alert-danger"><?php echo $this->translate($this->outcome['msg']) ?></div>
+        <div class="alert alert-danger"><?php echo $this->translate(
+                $this->outcome['msg']
+            ) ?></div>
     <?php
     }
 }
 ?>
 
+<div class="panel panel-default registration-box">
+    <div class="panel-heading"><?php echo $this->translate(
+            'Create account'
+        ) ?></div>
+    <div class="panel-body">
+        <form action="<?php echo $this->url('register-user') ?>" method="post">
+            <hr>
+            <h4><?php echo $this->translate('Basic details') ?></h4>
+            <hr>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Username'
+                    ) ?></p></span>
+                <input type="text" name="username" class="form-control"
+                       placeholder="<?php echo $this->translate('Username') ?>"
+                       value="<?php echo $this->userData['username'] ?>"
+                       required>
+            </div>
 
-<form action="<?php echo $this->url('register-user')?>" method="post">
-    <input type="text" name="first_name" placeholder="<?php echo $this->translate('First name')?>" value="<?php echo $this->userData['first_name']?>">
-    <input type="text" name="last_name" placeholder="<?php echo $this->translate('Last name')?>" value="<?php echo $this->userData['last_name']?>">
-    <input type="text" name="username" placeholder="<?php echo $this->translate('Username')?>" value="<?php echo $this->userData['username']?>" required>
-    <input type="email" name="email" placeholder="<?php echo $this->translate('Email')?>" value="<?php echo $this->userData['email']?>" required>
-    <input type="password" name="password" placeholder="<?php echo $this->translate('Password')?>" required>
-    <input type="password" name="password-confirm" placeholder="<?php echo $this->translate('Confirm password')?>" required>
-    <input type="submit" value="<?php echo $this->translate('Register')?>">
-</form>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Email'
+                    ) ?></p></span>
+                <input type="email" name="email" class="form-control"
+                       placeholder="<?php echo $this->translate('Email') ?>"
+                       value="<?php echo $this->userData['email'] ?>" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Password'
+                    ) ?></p></span>
+                <input type="password" name="password" class="form-control"
+                       placeholder="<?php echo $this->translate('Password') ?>"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Confirm password'
+                    ) ?></p></span>
+                <input type="password" name="password-confirm"
+                       class="form-control"
+                       placeholder="<?php echo $this->translate(
+                           'Confirm password'
+                       ) ?>"
+                       required>
+            </div>
+
+            <hr>
+            <h4><?php echo $this->translate('Shipment details') ?></h4>
+            <hr>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'First name'
+                    ) ?></p></span>
+                <input type="text" name="first_name" class="form-control"
+                       placeholder="<?php echo $this->translate(
+                           'First name'
+                       ) ?>"
+                       value="<?php echo $this->userData['first_name'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Last name'
+                    ) ?></p></span>
+                <input type="text" name="last_name" class="form-control"
+                       placeholder="<?php echo $this->translate('Last name') ?>"
+                       value="<?php echo $this->userData['last_name'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'City'
+                    ) ?></p></span>
+                <input type="text" name="city" class="form-control"
+                       placeholder="<?php echo $this->translate('City') ?>"
+                       value="<?php echo $this->userData['city'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Province'
+                    ) ?></p></span>
+                <input type="text" name="province" class="form-control"
+                       placeholder="<?php echo $this->translate('Province') ?>"
+                       value="<?php echo $this->userData['province'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Zip code'
+                    ) ?></p></span>
+                <input type="text" name="zip" class="form-control"
+                       placeholder="<?php echo $this->translate('Zip code') ?>"
+                       value="<?php echo $this->userData['zip'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Street'
+                    ) ?></p></span>
+                <input type="text" name="street" class="form-control"
+                       placeholder="<?php echo $this->translate('Street') ?>"
+                       value="<?php echo $this->userData['street'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Apartment'
+                    ) ?></p></span>
+                <input type="text" name="apartment" class="form-control"
+                       placeholder="<?php echo $this->translate('Apartment') ?>"
+                       value="<?php echo $this->userData['apartment'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Preferred shipping'
+                    ) ?></p></span>
+                <select name="shipment" class="form-control">
+                    <option value="1">Test shipment</option>
+                </select>
+            </div>
+
+            <hr>
+            <h4><?php echo $this->translate('Billing details') ?></h4>
+            <hr>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Company name'
+                    ) ?></p></span>
+                <input type="text" name="apartment" class="form-control"
+                       placeholder="<?php echo $this->translate('Company name') ?>"
+                       value="<?php echo $this->userData['company'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Tax ID'
+                    ) ?></p></span>
+                <input type="text" name="apartment" class="form-control"
+                       placeholder="<?php echo $this->translate('Tax ID') ?>"
+                       value="<?php echo $this->userData['tax_id'] ?>">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Keep me logged in'
+                    ) ?></p></span>
+
+                <input class="form-control" type="checkbox"
+                       name="store-session" checked>
+            </div>
+
+            <hr>
+
+            <input type="submit" class="btn btn-success pull-right"
+                   value="<?php echo $this->translate('Register') ?>">
+        </form>
+    </div>
+</div>
