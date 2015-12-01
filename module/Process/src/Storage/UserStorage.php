@@ -89,17 +89,34 @@ class UserStorage extends AbstractStorage
     }
 
     /**
+     * @param null $email
+     *
+     * @return string
+     */
+    public function generateUserToken($email = null)
+    {
+        if ($email == null) {
+            $token = md5(time());
+        } else {
+            $token = md5($email);
+        }
+        return $token;
+    }
+
+    /**
      * @param array $user
      *
      * @return array|ResultSet
      */
-    public function registerUser($user)
+    public function registerUser($user, $storeSession = false)
     {
         $canRegister = $this->canRegister($user);
 
         if (!$canRegister['result']) {
             return $canRegister;
         }
+
+        $user['token'] = $this->generateUserToken($user['email']);
 
         try {
             $this->_db->insert(self::TABLE, $user);
@@ -110,8 +127,9 @@ class UserStorage extends AbstractStorage
             ];
         }
         return [
-            'result' => true,
-            'msg'    => "User $user[email] has been registered.",
+            'result'        => true,
+            'msg'           => "User $user[email] has been registered.",
+            'userRecord'    => $user,
         ];
     }
 

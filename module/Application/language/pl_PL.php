@@ -26,5 +26,5 @@ return [
     'Powtórz hasło',
 
     'Register' =>
-    'Zarejestruj'
+    'Rejestracja'
 ];
