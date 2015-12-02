@@ -8,4 +8,5 @@ return array(
     'Process\CommProcess'                   => __DIR__ . '/src/StorageProcess/CommProcess.php',
     'Storage\AbstractStorage'               => __DIR__ . '/src/Storage/AbstractStorage.php',
     'Storage\UserStorage'                   => __DIR__ . '/src/Storage/UserStorage.php',
+    'Storage\SessionStorage'                => __DIR__ . '/src/Storage/SessionStorage.php',
 );
