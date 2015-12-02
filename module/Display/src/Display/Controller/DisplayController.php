@@ -45,9 +45,11 @@ class DisplayController extends AbstractActionController
                     'userData' => $userData,
                 ];
             }
+            $storeSession = $userData['store-session'];
             unset($userData['password-confirm']);
+            unset($userData['store-session']);
             $userStorage = new UserStorage($this->serviceLocator->get('adb'));
-            $outcome = $userStorage->registerUser($userData);
+            $outcome = $userStorage->registerUser($userData, $storeSession);
             return ['outcome' => $outcome];
         }
         return [
