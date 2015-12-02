@@ -117,6 +117,8 @@ class UserStorage extends AbstractStorage
         }
 
         $user['token'] = $this->generateUserToken($user['email']);
+        $clearPassword = $user['password'];
+        $user['password'] = password_hash($clearPassword, PASSWORD_BCRYPT);
 
         try {
             $this->_db->insert(self::TABLE, $user);
@@ -133,8 +135,10 @@ class UserStorage extends AbstractStorage
         ];
     }
 
-    public function loginUser($usernameOrEmail, $password)
+    public function loginUser($usernameOrEmail, $password, $storeSession = false)
     {
+        $this->clearSession();
+
         $userRecord = $this->_db->fetchOne(self::TABLE, ['username' => $usernameOrEmail]);
 
         if (empty($userRecord)) {
@@ -147,20 +151,103 @@ class UserStorage extends AbstractStorage
                 'msg'       => 'Account doesn\'t exist',
             ];
         }
+
+        if (!$this->verifyPassword($password, $userRecord)) {
+            $this->failedLogin($userRecord);
+            return [
+                'result'    => false,
+                'msg'       => 'Invalid password',
+            ];
+        }
+
+        SessionStorage::setValue('user-logged-in', true);
+        SessionStorage::setValue('username', $userRecord['username']);
+        SessionStorage::setValue('user-email', $userRecord['email']);
+
+        if ($storeSession) {
+            $this->storeSession($userRecord);
+        }
+
+        return [
+            'result'    => true,
+            'msg'       => "User $userRecord[email] logged in",
+        ];
     }
 
     public function userLoggedIn()
     {
+        $store = SessionStorage::getValue('user-logged-in');
 
+        if (!$store) {
+            $this->retrieveSession();
+        }
+
+        $store = SessionStorage::getValue('user-logged-in');
+
+        if (!$store) {
+            return false;
+        } else {
+            if ($store == true) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function storeSession($user)
     {
+        $username = $user['username'];
+        $password = $user['password'];
 
+        setcookie('username', $username);
+        setcookie('password', $password);
+    }
+
+    public function clearSession()
+    {
+        setcookie('username', null);
+        setcookie('password', null);
+        SessionStorage::setValue('user-logged-in', null);
+        SessionStorage::setValue('user-email', null);
+        SessionStorage::setValue('username', null);
     }
 
     public function retrieveSession()
     {
-        
+        $username = $_COOKIE['username'];
+        $password = $_COOKIE['password'];
+        if (!$username || !$password) {
+            return;
+        }
+        $this->loginUser($username, $password, true);
+    }
+
+    public function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function verifyPassword($password, $storedPassword)
+    {
+        if ($password == $storedPassword) {
+            // password from cookies
+            return true;
+        }
+        return password_verify($password, $storedPassword);
+    }
+
+    public function failedLogin($user)
+    {
+
+    }
+
+    public function fetchCurrentUser()
+    {
+        if (!$this->userLoggedIn()) {
+            return null;
+        }
+
+        $username = SessionStorage::getValue('username');
+        return $this->_db->fetchOne('users', ['username' => $username]);
     }
 }
