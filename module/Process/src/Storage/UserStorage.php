@@ -194,6 +194,21 @@ class UserStorage extends AbstractStorage
         return false;
     }
 
+    public function logout()
+    {
+        if (!$this->userLoggedIn()) {
+            return;
+        }
+        $username = SessionStorage::getValue('username');
+        $rec = [
+            'username' => $username,
+            'session_id' => '',
+            'last_logout' => date('Y-m-d H:i:s', time())
+        ];
+        $this->_db->update('users', $rec, 'username');
+        $this->clearSession();
+    }
+
     public function storeSession($user)
     {
         $username = $user['username'];
