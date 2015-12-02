@@ -147,7 +147,20 @@ class UserStorage extends AbstractStorage
                 'msg'       => 'Account doesn\'t exist',
             ];
         }
+    }
 
+    public function userLoggedIn()
+    {
 
+    }
+
+    public function storeSession($user)
+    {
+
+    }
+
+    public function retrieveSession()
+    {
+        
     }
 }
