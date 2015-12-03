@@ -4,7 +4,7 @@ namespace Storage;
 
 class SessionStorage
 {
-    const SESSION_NAMESPACE = 'stamp-master';
+    const SESSION_NAMESPACE = 'StampMaster';
 
     public static function setValue($key, $value)
     {
