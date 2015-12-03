@@ -8,6 +8,13 @@
 
 namespace Storage;
 
+/**
+ * Responsible for user operations regarding database, session and cookies
+ *
+ * Class UserStorage
+ *
+ * @package Storage
+ */
 class UserStorage extends AbstractStorage
 {
     /**
@@ -128,6 +135,11 @@ class UserStorage extends AbstractStorage
                 'msg'    => $e->getMessage(),
             ];
         }
+
+        if ($storeSession) {
+            $this->storeSession($user);
+        }
+
         return [
             'result'        => true,
             'msg'           => "User $user[email] has been registered.",
@@ -152,7 +164,7 @@ class UserStorage extends AbstractStorage
             ];
         }
 
-        if (!$this->verifyPassword($password, $userRecord)) {
+        if (!$this->verifyPassword($password, $userRecord['password'])) {
             $this->failedLogin($userRecord);
             return [
                 'result'    => false,
@@ -214,8 +226,8 @@ class UserStorage extends AbstractStorage
         $username = $user['username'];
         $password = $user['password'];
 
-        setcookie('username', $username);
-        setcookie('password', $password);
+        setcookie('username', $username, time() + (60 * 60 * 24 * 30), '/');
+        setcookie('password', $password, time() + (60 * 60 * 24 * 30), '/');
     }
 
     public function clearSession()
@@ -234,7 +246,7 @@ class UserStorage extends AbstractStorage
         if (!$username || !$password) {
             return;
         }
-        $this->loginUser($username, $password, true);
+        $this->loginUser($username, $password);
     }
 
     public function hashPassword($password)
