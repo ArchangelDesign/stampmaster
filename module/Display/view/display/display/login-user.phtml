@@ -1,0 +1,33 @@
+<div class="panel panel-default registration-box">
+    <div class="panel-heading"><?php echo $this->translate(
+            'Login'
+        ) ?></div>
+
+    <div class="panel-body">
+        <form action="<?php echo $this->url('login-user') ?>" method="post">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Username or email'
+                    ) ?></p></span>
+                <input type="text" name="username" class="form-control"
+                       placeholder="<?php echo $this->translate('Username') ?>"
+                       value="<?php echo $this->userData['username'] ?>"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Password'
+                    ) ?></p></span>
+                <input type="text" name="password" class="form-control"
+                       placeholder="<?php echo $this->translate('Password') ?>"
+                       required>
+            </div>
+
+            <input type="submit" class="btn btn-success pull-right"
+                   value="<?php echo $this->translate('Register') ?>">
+        </form>
+    </div>
+</div>
