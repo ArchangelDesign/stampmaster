@@ -36,10 +36,10 @@
 <?php
 $loggedIn = $this->loggedIn;
 if ($loggedIn):?>
-<a class="btn btn-danger"><?php echo $this->translate('Logout')?></a>
+<a class="btn btn-danger" href="<?php echo $this->url('logout-user')?>"><?php echo $this->translate('Logout')?></a>
 <?php else: ?>
-<a class="btn btn-default"><?php echo $this->translate('Login')?></a>
-    <a class="btn btn-default"><?php echo $this->translate('Register')?></a>
+<a class="btn btn-default"  href="<?php echo $this->url('login-user')?>"><?php echo $this->translate('Login')?></a>
+    <a class="btn btn-default" href="<?php echo $this->url('register-user')?>"><?php echo $this->translate('Register')?></a>
 <?php endif; ?>
 	<div class="container">
             <?php echo $this->content; ?>
