@@ -147,6 +147,13 @@ class UserStorage extends AbstractStorage
         ];
     }
 
+    /**
+     * @param      $usernameOrEmail
+     * @param      $password
+     * @param bool $storeSession
+     *
+     * @return array
+     */
     public function loginUser($usernameOrEmail, $password, $storeSession = false)
     {
         $this->clearSession();
@@ -186,6 +193,9 @@ class UserStorage extends AbstractStorage
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function userLoggedIn()
     {
         $store = SessionStorage::getValue('user-logged-in');
@@ -206,6 +216,11 @@ class UserStorage extends AbstractStorage
         return false;
     }
 
+    /**
+     * Clears session and cookies
+     *
+     * @return void
+     */
     public function logout()
     {
         if (!$this->userLoggedIn()) {
@@ -221,6 +236,12 @@ class UserStorage extends AbstractStorage
         $this->clearSession();
     }
 
+    /**
+     * Stores cookies with username and hashed password
+     *
+     * @param $user
+     * @return void
+     */
     public function storeSession($user)
     {
         $username = $user['username'];
@@ -230,6 +251,11 @@ class UserStorage extends AbstractStorage
         setcookie('password', $password, time() + (60 * 60 * 24 * 30), '/');
     }
 
+    /**
+     * removes cookies and session values
+     *
+     * @return void
+     */
     public function clearSession()
     {
         setcookie('username', null);
@@ -239,21 +265,37 @@ class UserStorage extends AbstractStorage
         SessionStorage::setValue('username', null);
     }
 
+    /**
+     * restores session saved in cookies
+     *
+     * @return void
+     */
     public function retrieveSession()
     {
-        $username = $_COOKIE['username'];
-        $password = $_COOKIE['password'];
+        $username = isset($_COOKIE['username'])?$_COOKIE['username']:false;
+        $password = isset($_COOKIE['password'])?$_COOKIE['password']:false;
         if (!$username || !$password) {
             return;
         }
         $this->loginUser($username, $password);
     }
 
+    /**
+     * @param string $password
+     *
+     * @return bool|string
+     */
     public function hashPassword($password)
     {
         return password_hash($password, PASSWORD_BCRYPT);
     }
 
+    /**
+     * @param $password
+     * @param $storedPassword
+     *
+     * @return bool
+     */
     public function verifyPassword($password, $storedPassword)
     {
         if ($password == $storedPassword) {
@@ -263,11 +305,20 @@ class UserStorage extends AbstractStorage
         return password_verify($password, $storedPassword);
     }
 
+    /**
+     * registers failed login attempt
+     *
+     * @param array $user
+     * @return void
+     */
     public function failedLogin($user)
     {
 
     }
 
+    /**
+     * @return array|null
+     */
     public function fetchCurrentUser()
     {
         if (!$this->userLoggedIn()) {

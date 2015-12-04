@@ -43,6 +43,19 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+
+            'login-user' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/login',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Display\Controller',
+                        'controller'    => 'Display',
+                        'action'        => 'loginUser',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'view_manager' => array(

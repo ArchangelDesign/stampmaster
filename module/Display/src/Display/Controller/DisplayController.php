@@ -17,7 +17,6 @@ class DisplayController extends AbstractActionController
         $userStorage->userLoggedIn();
         $loggedIn = SessionStorage::getValue('user-logged-in');
         $this->layout()->setVariable('loggedIn', $loggedIn);
-        echo "dispatched";
     }
 
     public function indexAction()
@@ -73,5 +72,10 @@ class DisplayController extends AbstractActionController
         return [
             'userData' => $userData,
         ];
+    }
+
+    public function loginUserAction()
+    {
+        return [];
     }
 }
