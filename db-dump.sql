@@ -44,15 +44,6 @@ CREATE TABLE `sm_stamp_types` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sm_stamp_types`
---
-
-LOCK TABLES `sm_stamp_types` WRITE;
-/*!40000 ALTER TABLE `sm_stamp_types` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sm_stamp_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `sm_users`
 --
 
@@ -66,6 +57,9 @@ CREATE TABLE `sm_users` (
   `password` varchar(150) COLLATE utf8_bin NOT NULL,
   `date_registered` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
+  `last_logout` datetime DEFAULT NULL,
+  `active` tinyint(4) DEFAULT '1' COMMENT 'Collection of users',
+  `session_id` varchar(60) COLLATE utf8_bin DEFAULT NULL,
   `token` varchar(25) COLLATE utf8_bin NOT NULL,
   `avatar` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `country` varchar(45) COLLATE utf8_bin DEFAULT NULL,
@@ -75,7 +69,6 @@ CREATE TABLE `sm_users` (
   `street` varchar(70) COLLATE utf8_bin DEFAULT NULL,
   `apartment` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `shipment` int(11) DEFAULT NULL,
-  `active` tinyint(4) DEFAULT '1' COMMENT 'Collection of users',
   `first_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `last_name` varchar(80) COLLATE utf8_bin DEFAULT NULL,
   `company` varchar(90) COLLATE utf8_bin DEFAULT NULL,
@@ -86,16 +79,6 @@ CREATE TABLE `sm_users` (
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AVG_ROW_LENGTH=16384;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sm_users`
---
-
-LOCK TABLES `sm_users` WRITE;
-/*!40000 ALTER TABLE `sm_users` DISABLE KEYS */;
-INSERT INTO `sm_users` VALUES (2,'admin','aimeefoodlover@gmail.com','sdfsdf',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'Rafal','Martinez',NULL,NULL);
-/*!40000 ALTER TABLE `sm_users` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -106,4 +89,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-30 18:12:16
+-- Dump completed on 2015-12-02 10:53:34

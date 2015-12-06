@@ -8,6 +8,13 @@
 
 namespace Storage;
 
+/**
+ * Responsible for user operations regarding database, session and cookies
+ *
+ * Class UserStorage
+ *
+ * @package Storage
+ */
 class UserStorage extends AbstractStorage
 {
     /**
@@ -117,6 +124,8 @@ class UserStorage extends AbstractStorage
         }
 
         $user['token'] = $this->generateUserToken($user['email']);
+        $clearPassword = $user['password'];
+        $user['password'] = password_hash($clearPassword, PASSWORD_BCRYPT);
 
         try {
             $this->_db->insert(self::TABLE, $user);
@@ -126,6 +135,11 @@ class UserStorage extends AbstractStorage
                 'msg'    => $e->getMessage(),
             ];
         }
+
+        if ($storeSession) {
+            $this->storeSession($user);
+        }
+
         return [
             'result'        => true,
             'msg'           => "User $user[email] has been registered.",
@@ -133,8 +147,17 @@ class UserStorage extends AbstractStorage
         ];
     }
 
-    public function loginUser($usernameOrEmail, $password)
+    /**
+     * @param      $usernameOrEmail
+     * @param      $password
+     * @param bool $storeSession
+     *
+     * @return array
+     */
+    public function loginUser($usernameOrEmail, $password, $storeSession = false)
     {
+        $this->clearSession();
+
         $userRecord = $this->_db->fetchOne(self::TABLE, ['username' => $usernameOrEmail]);
 
         if (empty($userRecord)) {
@@ -148,6 +171,161 @@ class UserStorage extends AbstractStorage
             ];
         }
 
+        if (!$this->verifyPassword($password, $userRecord['password'])) {
+            $this->failedLogin($userRecord);
+            return [
+                'result'    => false,
+                'msg'       => 'Invalid password',
+            ];
+        }
 
+        SessionStorage::setValue('user-logged-in', true);
+        SessionStorage::setValue('username', $userRecord['username']);
+        SessionStorage::setValue('user-email', $userRecord['email']);
+
+        if ($storeSession) {
+            $this->storeSession($userRecord);
+        }
+
+        return [
+            'result'    => true,
+            'msg'       => "User $userRecord[email] logged in",
+        ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function userLoggedIn()
+    {
+        $store = SessionStorage::getValue('user-logged-in');
+
+        if (!$store) {
+            $this->retrieveSession();
+        }
+
+        $store = SessionStorage::getValue('user-logged-in');
+
+        if (!$store) {
+            return false;
+        } else {
+            if ($store == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Clears session and cookies
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        if (!$this->userLoggedIn()) {
+            return;
+        }
+        $username = SessionStorage::getValue('username');
+        $rec = [
+            'username' => $username,
+            'session_id' => '',
+            'last_logout' => date('Y-m-d H:i:s', time())
+        ];
+        $this->_db->update('users', $rec, 'username');
+        $this->clearSession();
+    }
+
+    /**
+     * Stores cookies with username and hashed password
+     *
+     * @param $user
+     * @return void
+     */
+    public function storeSession($user)
+    {
+        $username = $user['username'];
+        $password = $user['password'];
+
+        setcookie('username', $username, time() + (60 * 60 * 24 * 30), '/');
+        setcookie('password', $password, time() + (60 * 60 * 24 * 30), '/');
+    }
+
+    /**
+     * removes cookies and session values
+     *
+     * @return void
+     */
+    public function clearSession()
+    {
+        setcookie('username', null);
+        setcookie('password', null);
+        SessionStorage::setValue('user-logged-in', null);
+        SessionStorage::setValue('user-email', null);
+        SessionStorage::setValue('username', null);
+    }
+
+    /**
+     * restores session saved in cookies
+     *
+     * @return void
+     */
+    public function retrieveSession()
+    {
+        $username = isset($_COOKIE['username'])?$_COOKIE['username']:false;
+        $password = isset($_COOKIE['password'])?$_COOKIE['password']:false;
+        if (!$username || !$password) {
+            return;
+        }
+        $this->loginUser($username, $password);
+    }
+
+    /**
+     * @param string $password
+     *
+     * @return bool|string
+     */
+    public function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    /**
+     * @param $password
+     * @param $storedPassword
+     *
+     * @return bool
+     */
+    public function verifyPassword($password, $storedPassword)
+    {
+        if ($password == $storedPassword) {
+            // password from cookies
+            return true;
+        }
+        return password_verify($password, $storedPassword);
+    }
+
+    /**
+     * registers failed login attempt
+     *
+     * @param array $user
+     * @return void
+     */
+    public function failedLogin($user)
+    {
+
+    }
+
+    /**
+     * @return array|null
+     */
+    public function fetchCurrentUser()
+    {
+        if (!$this->userLoggedIn()) {
+            return null;
+        }
+
+        $username = SessionStorage::getValue('username');
+        return $this->_db->fetchOne('users', ['username' => $username]);
     }
 }

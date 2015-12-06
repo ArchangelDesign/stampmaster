@@ -2,14 +2,23 @@
 
 namespace Display\Controller;
 
+use Storage\SessionStorage;
 use Storage\UserStorage;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 
 class DisplayController extends AbstractActionController
 {
-    /**
-     * @return array
-     */
+
+    public function onDispatch(MvcEvent $e)
+    {
+        parent::onDispatch($e);
+        $userStorage = new UserStorage($this->serviceLocator->get('ADB'));
+        $userStorage->userLoggedIn();
+        $loggedIn = SessionStorage::getValue('user-logged-in');
+        $this->layout()->setVariable('loggedIn', $loggedIn);
+    }
+
     public function indexAction()
     {
         return array();
@@ -49,18 +58,30 @@ class DisplayController extends AbstractActionController
             if ($userData['password'] != $userData['password-confirm']) {
                 return [
                     'outcome' => [
-                        'result' => false, 'msg' => 'Passwords do not match'
+                        'result'    => false,
+                        'msg'       => 'Passwords do not match'
                     ],
                     'userData' => $userData,
                 ];
             }
+            $storeSession = isset($userData['store-session'])?true:false;
             unset($userData['password-confirm']);
+            unset($userData['store-session']);
             $userStorage = new UserStorage($this->serviceLocator->get('adb'));
-            $outcome = $userStorage->registerUser($userData);
-            return ['outcome' => $outcome];
+            var_dump($storeSession);
+            $outcome = $userStorage->registerUser($userData, $storeSession);
+            return [
+                'outcome'   => $outcome,
+                'userData'  => $userData,
+            ];
         }
         return [
             'userData' => $userData,
         ];
+    }
+
+    public function loginUserAction()
+    {
+        return [];
     }
 }

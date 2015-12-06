@@ -34,15 +34,19 @@
 </head>
 <body>
 <?php
-    // Init for locale
-
-?>
+$loggedIn = $this->loggedIn;
+if ($loggedIn):?>
+<a class="btn btn-danger" href="<?php echo $this->url('logout-user')?>"><?php echo $this->translate('Logout')?></a>
+<?php else: ?>
+<a class="btn btn-default"  href="<?php echo $this->url('login-user')?>"><?php echo $this->translate('Login')?></a>
+    <a class="btn btn-default" href="<?php echo $this->url('register-user')?>"><?php echo $this->translate('Register')?></a>
+<?php endif; ?>
 	<div class="container">
             <?php echo $this->content; ?>
         </div>
 	<div class="div-footer">
 		<footer>
-			<p>&copy; 20012 - <?php echo date('Y') ?> by Archangel Design. All rights reserved</p>
+			<p>&copy; 2012 - <?php echo date('Y') ?> by Archangel Design. All rights reserved</p>
 		</footer>
 	</div>
         <?php echo $this->inlineScript()?>
