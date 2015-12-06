@@ -7,16 +7,25 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class DisplayController extends AbstractActionController
 {
+    /**
+     * @return array
+     */
     public function indexAction()
     {
         return array();
     }
 
+    /**
+     * @return array
+     */
     public function orderBeginAction()
     {
         return array();
     }
 
+    /**
+     * @return array
+     */
     public function registerUserAction()
     {
         $request = $this->getRequest();
