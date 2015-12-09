@@ -247,8 +247,8 @@ class UserStorage extends AbstractStorage
         $username = $user['username'];
         $password = $user['password'];
 
-        setcookie('username', $username, time() + (60 * 60 * 24 * 30), '/');
-        setcookie('password', $password, time() + (60 * 60 * 24 * 30), '/');
+        setcookie('username', $username, time() + (60 * 60 * 24 * 30), '/', \SmConfig::domain);
+        setcookie('password', $password, time() + (60 * 60 * 24 * 30), '/', \SmConfig::domain);
     }
 
     /**
@@ -258,9 +258,9 @@ class UserStorage extends AbstractStorage
      */
     public function clearSession()
     {
-        setcookie('username', null);
-        setcookie('password', null);
-        SessionStorage::setValue('user-logged-in', null);
+        setcookie('username', '', null, '/', \SmConfig::domain);
+        setcookie('password', '', null, '/', \SmConfig::domain);
+        SessionStorage::setValue('user-logged-in', false);
         SessionStorage::setValue('user-email', null);
         SessionStorage::setValue('username', null);
     }
