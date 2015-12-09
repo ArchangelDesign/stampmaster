@@ -24,11 +24,17 @@ class DisplayController extends AbstractActionController
         return array();
     }
 
+    /**
+     * @return array
+     */
     public function orderBeginAction()
     {
         return array();
     }
 
+    /**
+     * @return array
+     */
     public function registerUserAction()
     {
         $request = $this->getRequest();
