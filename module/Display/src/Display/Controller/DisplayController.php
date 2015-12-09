@@ -62,8 +62,12 @@ class DisplayController extends AbstractActionController
             unset($userData['password-confirm']);
             unset($userData['store-session']);
             $userStorage = new UserStorage($this->serviceLocator->get('adb'));
-            var_dump($storeSession);
             $outcome = $userStorage->registerUser($userData, $storeSession);
+
+            if ($outcome['result']) {
+                return $this->redirect()->toRoute('display-index');
+            }
+
             return [
                 'outcome'   => $outcome,
                 'userData'  => $userData,
@@ -76,6 +80,29 @@ class DisplayController extends AbstractActionController
 
     public function loginUserAction()
     {
+        $req = $this->getRequest();
+
+        if ($req->isPost()) {
+            $data = $req->getPost();
+            $storage = new UserStorage($this->serviceLocator->get('ADB'));
+            $res = $storage->loginUser($data['username'], $data['password'], true);
+
+            if ($res['result']) {
+                return $this->redirect()->toRoute('display-index');
+            }
+
+            return [
+                'outcome' => $res,
+                'username' => $data['username'],
+            ];
+        }
         return [];
+    }
+
+    public function logoutUserAction()
+    {
+        $storage = new UserStorage($this->serviceLocator->get('ADB'));
+        $storage->logout();
+        return $this->redirect()->toRoute('display-index');
     }
 }

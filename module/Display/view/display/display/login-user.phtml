@@ -4,6 +4,10 @@
         ) ?></div>
 
     <div class="panel-body">
+        <?php
+        if ($this->outcome): ?>
+            <div class="alert alert-danger"><?php echo $this->outcome['msg']?></div>
+        <?php endif ?>
         <form action="<?php echo $this->url('login-user') ?>" method="post">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><p
@@ -12,7 +16,7 @@
                     ) ?></p></span>
                 <input type="text" name="username" class="form-control"
                        placeholder="<?php echo $this->translate('Username') ?>"
-                       value="<?php echo $this->userData['username'] ?>"
+                       value="<?php echo $this->username ?>"
                        required>
             </div>
 
@@ -26,8 +30,18 @@
                        required>
             </div>
 
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><p
+                        class="reg-form-field-desc""><?php echo $this->translate(
+                        'Remember me'
+                    ) ?></p></span>
+                <input type="checkbox" name="store-session" class="form-control"
+                       placeholder="<?php echo $this->translate('Remember me') ?>"
+                       checked>
+            </div>
+
             <input type="submit" class="btn btn-success pull-right"
-                   value="<?php echo $this->translate('Register') ?>">
+                   value="<?php echo $this->translate('Login') ?>">
         </form>
     </div>
 </div>

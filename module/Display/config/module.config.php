@@ -56,6 +56,19 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+
+            'logout-user' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/logout',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Display\Controller',
+                        'controller'    => 'Display',
+                        'action'        => 'logoutUser',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'view_manager' => array(
