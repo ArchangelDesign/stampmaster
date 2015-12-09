@@ -1,22 +1,20 @@
 <div>Register user</div>
 
-<?php if (isset($this->outcome)) {
-    var_dump($outcome);
-
-    if (!$this->outcome['result']) { ?>
-        <div class="alert alert-danger"><?php echo $this->translate(
-                $this->outcome['msg']
-            ) ?></div>
-    <?php
-    }
-}
-?>
-
 <div class="panel panel-default registration-box">
     <div class="panel-heading"><?php echo $this->translate(
             'Create account'
         ) ?></div>
     <div class="panel-body">
+        <?php if (isset($this->outcome)) {
+            if (!$this->outcome['result']) { ?>
+                <div class="alert alert-danger"><?php echo $this->translate(
+                        $this->outcome['msg']
+                    ) ?></div>
+            <?php
+            }
+        }
+        ?>
+
         <form action="<?php echo $this->url('register-user') ?>" method="post">
             <hr>
             <h4><?php echo $this->translate('Basic details') ?></h4>
