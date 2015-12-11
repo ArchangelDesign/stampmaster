@@ -1,4 +1,10 @@
 <?php
+/**
+ * Stamp Master
+ * copyright (c) Archangel Design 2015
+ * @author Rafal Martinez-Marjanski
+ * copyright (c) all rights reserved
+ */
 
 namespace Display\Controller;
 
@@ -7,9 +13,17 @@ use Storage\UserStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 
+/**
+ * Class DisplayController
+ *
+ * @package Display\Controller
+ */
 class DisplayController extends AbstractActionController
 {
-
+    /**
+     * @param MvcEvent $e
+     * @return void
+     */
     public function onDispatch(MvcEvent $e)
     {
         parent::onDispatch($e);
@@ -84,6 +98,9 @@ class DisplayController extends AbstractActionController
         ];
     }
 
+    /**
+     * @return array|\Zend\Http\Response
+     */
     public function loginUserAction()
     {
         $req = $this->getRequest();
@@ -105,6 +122,9 @@ class DisplayController extends AbstractActionController
         return [];
     }
 
+    /**
+     * @return \Zend\Http\Response
+     */
     public function logoutUserAction()
     {
         $storage = new UserStorage($this->serviceLocator->get('ADB'));
