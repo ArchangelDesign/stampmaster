@@ -8,11 +8,12 @@
 
 namespace Admin\Controller;
 
+use Common\AbstractSMController;
 use Process\StorageProcess;
 use Storage\UserStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class AdminController extends AbstractActionController
+class AdminController extends AbstractSMController
 {
     public function dashboardAction()
     {

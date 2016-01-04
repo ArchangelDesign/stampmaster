@@ -8,6 +8,7 @@
 
 namespace Display\Controller;
 
+use Common\AbstractSMController;
 use Storage\SessionStorage;
 use Storage\UserStorage;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -18,20 +19,8 @@ use Zend\Mvc\MvcEvent;
  *
  * @package Display\Controller
  */
-class DisplayController extends AbstractActionController
+class DisplayController extends AbstractSMController
 {
-    /**
-     * @param MvcEvent $e
-     * @return void
-     */
-    public function onDispatch(MvcEvent $e)
-    {
-        parent::onDispatch($e);
-        $userStorage = new UserStorage($this->serviceLocator->get('ADB'));
-        $userStorage->userLoggedIn();
-        $loggedIn = SessionStorage::getValue('user-logged-in');
-        $this->layout()->setVariable('loggedIn', $loggedIn);
-    }
 
     public function indexAction()
     {
