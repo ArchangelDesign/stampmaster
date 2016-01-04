@@ -258,8 +258,8 @@ class UserStorage extends AbstractStorage
      */
     public function clearSession()
     {
-        setcookie('username', '', null, '/', \SmConfig::domain);
-        setcookie('password', '', null, '/', \SmConfig::domain);
+        setcookie('username', '', null, '/', '.' . \SmConfig::domain);
+        setcookie('password', '', null, '/', '.' . \SmConfig::domain);
         SessionStorage::setValue('user-logged-in', false);
         SessionStorage::setValue('user-email', null);
         SessionStorage::setValue('username', null);

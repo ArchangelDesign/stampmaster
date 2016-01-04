@@ -36,6 +36,7 @@
 <?php
 $loggedIn = $this->loggedIn;
 if ($loggedIn):?>
+    <p class="pull-right">Logged in as <?php echo $userData['username'] ?></p>
 <a class="btn btn-danger" href="<?php echo $this->url('logout-user')?>"><?php echo $this->translate('Logout')?></a>
 <?php else: ?>
 <a class="btn btn-default"  href="<?php echo $this->url('login-user')?>"><?php echo $this->translate('Login')?></a>
