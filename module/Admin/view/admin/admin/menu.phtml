@@ -1,0 +1,10 @@
+<?php
+if (!isset($location)) {
+    $location = 1;
+}
+?>
+<ul class="nav nav-tabs" style="margin-bottom: 10px">
+    <li role="presentation" class="<?php if ($location == 1) echo 'active'?>"><a href="<?php echo $this->url('admin-dashboard')?>">Dashboard</a></li>
+    <li role="presentation" class="<?php if ($location == 2) echo 'active'?>"><a href="<?php echo $this->url('admin-orders')?>">Orders</a></li>
+    <li role="presentation" class="<?php if ($location == 3) echo 'active'?>"><a href="<?php echo $this->url('admin-stamp-types')?>">Stamp types</a></li>
+</ul>
