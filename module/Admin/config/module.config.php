@@ -10,11 +10,8 @@ return array(
             'admin-dashboard' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    // Change this to something specific to your module
                     'route'    => '/admin/dashboard',
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
                         '__NAMESPACE__' => 'Admin\Controller',
                         'controller'    => 'Admin',
                         'action'        => 'dashboard',
@@ -26,11 +23,8 @@ return array(
             'admin-orders' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    // Change this to something specific to your module
                     'route'    => '/admin/orders',
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
                         '__NAMESPACE__' => 'Admin\Controller',
                         'controller'    => 'Admin',
                         'action'        => 'orders',
@@ -38,6 +32,33 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+
+            'admin-stamp-types' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/admin/stamp-types',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Admin',
+                        'action'        => 'stampTypes',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+
+            'admin-stamp-types-data' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/admin/fetch-stamp-types',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Admin',
+                        'action'        => 'fetchStampTypes',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+
         ),
     ),
     'view_manager' => array(
