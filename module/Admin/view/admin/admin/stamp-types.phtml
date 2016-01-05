@@ -1,0 +1,57 @@
+<?php
+echo $this->partial('admin/admin/menu.phtml') ?>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <?php echo $this->translate('Stamp types') ?>
+    </div>
+
+    <div class="panel-body">
+        <nav>
+            <ul class="pagination">
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active" onclick="changePage(1, this)"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                <li onclick="changePage(2, this)"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                <li><a href="#"><span aria-hidden="true">»</span></a></li>
+            </ul>
+        </nav>
+        <button class="btn btn-default" style="float: left; margin-right: 5px;"><?php echo $this->translate('Add another type')?></button>
+        <div class="input-group" style="width:250px; float:left">
+            <input type="text" class="form-control" aria-label="...">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button"><?php echo $this->translate('Search')?></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body" id="stamp-types-container">
+
+    </div>
+</div>
+
+
+<script>
+    function changePage(page, li)
+    {
+        var parent = $(li).parent();
+        parent.children().removeClass('active');
+        $(li).addClass('active');
+
+        var container = $("#stamp-types-container");
+
+        container.html('Loading...');
+
+        var requestUrl = '<?php echo $this->url('admin-stamp-types-data')?>';
+
+        var request = $.ajax({
+            url: requestUrl,
+            method: 'post'
+        });
+
+        request.success(
+            function(response) {
+                $("#stamp-types-container").html(response);
+            }
+        );
+    }
+</script>
