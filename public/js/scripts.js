@@ -21,5 +21,29 @@ $(document).on('click', '.slide-out-container', function() {
             document.location.replace(target);
         }
     });
+});
 
+/**
+ * blocks the screen while modal box is open
+ */
+function showOverlay()
+{
+    $("#global-overlay").fadeIn();
+}
+
+/**
+ * removes overlay after modal box has been closed
+ */
+function hideOverlay()
+{
+    $("#global-overlay").fadeOut();
+}
+
+/**
+ * close any open dialogs and remove overlay
+ */
+$(document).on('click', '#global-overlay', function() {
+    console.log('sdfsdf');
+    $(".modal-box").fadeOut();
+    hideOverlay();
 });

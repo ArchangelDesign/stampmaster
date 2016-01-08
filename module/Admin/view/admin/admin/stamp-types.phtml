@@ -64,11 +64,13 @@ echo $this->partial('admin/admin/menu.phtml') ?>
 
     function closeDialog()
     {
+        hideOverlay();
         $(".add-stamp-type-modal").fadeOut();
     }
 
     function openDialog()
     {
+        showOverlay();
         $(".add-stamp-type-modal").fadeIn();
     }
 </script>
