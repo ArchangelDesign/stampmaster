@@ -121,6 +121,16 @@ body {
     margin:0px;
 }
 
+.add-stamp-type-modal {
+    display:block;
+    position:fixed;
+    width:450px;
+    height:500px;
+    left: calc( 50% - 225px );
+    top:20px;
+    display:none;
+}
+
 @MEDIA ( max-width : 480px) {
 	.test-div {
 		background-color: grey;

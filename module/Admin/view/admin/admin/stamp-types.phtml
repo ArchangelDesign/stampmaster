@@ -15,7 +15,7 @@ echo $this->partial('admin/admin/menu.phtml') ?>
                 <li><a href="#"><span aria-hidden="true">»</span></a></li>
             </ul>
         </nav>
-        <button class="btn btn-default" style="float: left; margin-right: 5px;"><?php echo $this->translate('Add another type')?></button>
+        <button class="btn btn-default" style="float: left; margin-right: 5px;" onclick="openDialog()"><?php echo $this->translate('Add another type')?></button>
         <div class="input-group" style="width:250px; float:left">
             <input type="text" class="form-control" aria-label="...">
             <div class="input-group-btn">
@@ -29,13 +29,16 @@ echo $this->partial('admin/admin/menu.phtml') ?>
     </div>
 </div>
 
+<?php echo $this->partial('admin/admin/add-stamp-type-modal.phtml') ?>
 
 <script>
     function changePage(page, li)
     {
-        var parent = $(li).parent();
-        parent.children().removeClass('active');
-        $(li).addClass('active');
+        if (li != 0) {
+            var parent = $(li).parent();
+            parent.children().removeClass('active');
+            $(li).addClass('active');
+        }
 
         var container = $("#stamp-types-container");
 
@@ -53,5 +56,19 @@ echo $this->partial('admin/admin/menu.phtml') ?>
                 $("#stamp-types-container").html(response);
             }
         );
+    }
+
+    $(document).ready(function() {
+        changePage(1)
+    });
+
+    function closeDialog()
+    {
+        $(".add-stamp-type-modal").fadeOut();
+    }
+
+    function openDialog()
+    {
+        $(".add-stamp-type-modal").fadeIn();
     }
 </script>
