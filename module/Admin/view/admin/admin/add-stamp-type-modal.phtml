@@ -1,7 +1,95 @@
-<div class="add-stamp-type-modal panel panel-primary">
+<div class="add-stamp-type-modal modal-box panel panel-primary">
     <div class="panel-heading">
         <?php echo $this->translate('Add stamp type'); ?>
-        <span class="glyphicon-remove-sign pull-right" onclick="closeDialog()"></span>
+        <span class="glyphicon-remove-sign pull-right"
+              onclick="closeDialog()"></span>
+    </div>
+
+    <div class="panel-body">
+        <p class="reg-form-field-desc">Name</p>
+        <input type="text" class="form-control" name="stamp-name">
+
+        <p class="reg-form-field-desc">Manufacturer</p>
+        <input type="text" class="form-control" name="manufacturer">
+
+        <p class="reg-form-field-desc">Thumbnail</p>
+        <input class="form-control" type="file" name="thumbnail">
+
+        <p class="reg-form-field-desc">Large image</p>
+        <input class="form-control" type="file" name="image">
+
+        <p class="reg-form-field-desc"
+           style="width:70px; float: left; margin-left:2px;">Width</p>
+
+        <p class="reg-form-field-desc"
+           style="width:70px; float: left; margin-left:8px;">Height</p>
+
+        <p class="reg-form-field-desc"
+           style="width:210px; float: left; margin-left:8px;">Weight</p>
+        <input class="form-control" style="width:70px; float: left;" type="text"
+               name="width">
+
+        <input class="form-control"
+               style="width:70px; float: left; margin-left: 5px;" type="text"
+               name="height">
+
+        <input class="form-control"
+               style="width:70px; float: left; margin-left: 5px;" type="text"
+               name="weight">
+
+        <p class="reg-form-field-desc">Description</p>
+        <textarea name="description" class="form-control" style="height:87px"></textarea>
+
+        <div
+            style="position:absolute; height:50px; bottom:0px; width:150px; right:0px">
+            <button class="btn btn-success" onclick="submitForm()">Add</button>
+            <button class="btn btn-danger" onclick="closeDialog()">Cancel</button>
+        </div>
     </div>
 
 </div>
+
+<script>
+    function submitForm()
+    {
+        var name = $("input[name=stamp-name]").val();
+        var manufacturer = $("input[name=manufacturer]").val();
+        var description = $("textarea[name=description]").val();
+        var width = $("input[name=width]").val();
+        var height = $("input[name=height]").val();
+        var weight = $("input[name=weight").val();
+
+        if (name.trim() == "" || manufacturer.trim() == "" || description.trim() == "") {
+            alert('Name, manufacturer and description are required.');
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('manufacturer', manufacturer);
+        formData.append('description', description);
+        formData.append('width', width);
+        formData.append('height', height);
+        formData.append('weight', weight);
+
+        // formData.append('avatar', $('#avatar').get(0).files[0]);
+        
+
+        var req = $.ajax({
+            url: "<?php echo $this->url('add-stamp-type')?>",
+            method: "POST",
+            processData: false,
+            contentType: false,
+            data: formData
+        });
+
+        req.done(function (response) {
+            var code = $(response).find("code")[0];
+            var msg = $(response).find("description")[0];
+
+        });
+
+        req.fail(function () {
+        });
+    }
+</script>
