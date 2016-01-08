@@ -59,6 +59,19 @@ return array(
                 'may_terminate' => true,
             ),
 
+            'add-stamp-type' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/admin/add-stamp-type',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Admin',
+                        'action'        => 'addStampType',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+
         ),
     ),
     'view_manager' => array(

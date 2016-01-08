@@ -59,4 +59,9 @@ class AdminController extends AbstractSMController
         return $vm;
     }
 
+    public function addStampTypeAction()
+    {
+
+    }
+
 }
