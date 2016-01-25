@@ -11,6 +11,7 @@ namespace Admin\Controller;
 use Common\AbstractSMController;
 use Process\StorageProcess;
 use Storage\UserStorage;
+use Storage\StampStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -44,8 +45,9 @@ class AdminController extends AbstractSMController
         $vm = new ViewModel();
         $vm->setTerminal(true);
         $db = $this->serviceLocator->get('adb');
+        $storage = new StampStorage($db);
 
-        $allTypes = $db->fetchAll('stamp_types');
+        $allTypes = $storage->fetchAllStampTypes();
 
         $params = $this->params()->fromQuery();
 
@@ -61,7 +63,15 @@ class AdminController extends AbstractSMController
 
     public function addStampTypeAction()
     {
-
+        $request = $this->getRequest();
+        
+        if (!$request->isPost()) {
+            return $this->redirect()->toRoute('');
+        }
+        
+        $data = $request->getPost();
+        $storage = new StampStorage($this->serviceLocator->get('ADB'));
+        $result = $storage->insertStampType($data);
     }
 
 }

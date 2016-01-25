@@ -9,5 +9,6 @@ return array(
     'Storage\AbstractStorage'               => __DIR__ . '/src/Storage/AbstractStorage.php',
     'Storage\UserStorage'                   => __DIR__ . '/src/Storage/UserStorage.php',
     'Storage\SessionStorage'                => __DIR__ . '/src/Storage/SessionStorage.php',
+    'Storage\StampStorage'                  => __DIR__ . '/src/Storage/StampStorage.php',
     'Common\AbstractSMController'           => __DIR__ . '/src/Common/AbstractSMController.php',
 );
