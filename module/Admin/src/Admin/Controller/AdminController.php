@@ -72,6 +72,12 @@ class AdminController extends AbstractSMController
         $data = $request->getPost();
         $storage = new StampStorage($this->serviceLocator->get('ADB'));
         $result = $storage->insertStampType($data);
+        
+        $vm = new ViewModel();
+        $vm->setTerminal(true);
+        $vm->setTemplate('admin/admin/empty.phtml');
+        echo \Common\XmlResponder::generalResponse(100, 'message');
+        return $vm;
     }
 
 }

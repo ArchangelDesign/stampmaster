@@ -57,7 +57,7 @@
         var description = $("textarea[name=description]").val();
         var width = $("input[name=width]").val();
         var height = $("input[name=height]").val();
-        var weight = $("input[name=weight").val();
+        var weight = $("input[name=weight]").val();
 
         if (name.trim() == "" || manufacturer.trim() == "" || description.trim() == "") {
             alert('Name, manufacturer and description are required.');
@@ -85,8 +85,9 @@
 
         req.done(function (response) {
             var code = $(response).find("code")[0];
-            var msg = $(response).find("description")[0];
-
+            var msg = $(response).find("message")[0].textContent;
+            alert(msg);
+            console.log(msg);
         });
 
         req.fail(function () {

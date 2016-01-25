@@ -6,7 +6,7 @@ class XmlResponder
 {
     private static function _header()
     {
-        return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>';
+        return '<?xml version="1.0" encoding="UTF-8" ?>';
     }
     
     private static function _open()
@@ -14,6 +14,7 @@ class XmlResponder
         $res = '<StampMaster>';
         $res .= '<version>' . Version::getVersion() . '</version>';
         $res .= '</StampMaster>';
+        return $res;
     }
     
     private static function _responseOpen()
@@ -32,6 +33,7 @@ class XmlResponder
         $res .= self::_open();
         $res .= self::_responseOpen();
         $res .= "<code>$code</code><message>$message</message>";
-        $res.= self::_responseClose();       
+        $res.= self::_responseClose();
+        return $res;
     }
 }
