@@ -84,10 +84,13 @@
         });
 
         req.done(function (response) {
-            var code = $(response).find("code")[0];
-            var msg = $(response).find("message")[0].textContent;
-            alert(msg);
-            console.log(msg);
+            var code = $(response).find("code")[0].textContent;
+            var msg = $(response).find("message")[0].textContent;            
+            if (code == 200) {
+                closeDialog();
+                changePage(1);
+            } else 
+                alert(msg);           
         });
 
         req.fail(function () {

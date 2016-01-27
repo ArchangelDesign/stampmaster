@@ -17,7 +17,8 @@ class StampStorage extends AbstractStorage
     
     public function insertStampType($data)
     {        
-        try {
+        try {           
+            $data['date_created'] = date('Y-m-d H:i:s', time());
             $res = $this->_db->insert('stamp_types', $data);
             $message = 'New stamp type created successfully.';
             $code = 200;
@@ -26,7 +27,7 @@ class StampStorage extends AbstractStorage
             $code = 500;
         }
         return [
-            'code' => 500,
+            'code' => $code,
             'message' => $message,
         ];
     }
