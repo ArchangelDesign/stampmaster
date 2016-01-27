@@ -16,8 +16,19 @@ class StampStorage extends AbstractStorage
     }
     
     public function insertStampType($data)
-    {
-        
+    {        
+        try {
+            $res = $this->_db->insert('stamp_types', $data);
+            $message = 'New stamp type created successfully.';
+            $code = 200;
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            $code = 500;
+        }
+        return [
+            'code' => 500,
+            'message' => $message,
+        ];
     }
     
     public function deleteStampType($id)

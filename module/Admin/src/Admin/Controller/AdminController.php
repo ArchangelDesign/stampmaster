@@ -76,7 +76,7 @@ class AdminController extends AbstractSMController
         $vm = new ViewModel();
         $vm->setTerminal(true);
         $vm->setTemplate('admin/admin/empty.phtml');
-        echo \Common\XmlResponder::generalResponse(100, 'message');
+        echo \Common\XmlResponder::generalResponse($result['code'], $result['message']);
         return $vm;
     }
 
