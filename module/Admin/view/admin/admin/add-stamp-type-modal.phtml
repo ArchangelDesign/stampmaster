@@ -94,6 +94,9 @@
         });
 
         req.fail(function () {
+            alert("<?php echo $this->translate(
+                    "There was an unexpected error while processing request. Check your internet connection."
+                    )?>");
         });
     }
 </script>
