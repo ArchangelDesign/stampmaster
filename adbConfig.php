@@ -14,7 +14,7 @@
 return [
     'driver' => 'mysqli',
     'database' => 'sm',
-    'username' => 'admin',
+    'username' => 'root',
     'password' => 'admin',
     'prefix' => 'sm_', // not required, prefix added to all tables (automatically)
     'profiler' => true, // recommended, if disabled some methods will not return results (like getLastQuery())
@@ -24,8 +24,8 @@ return [
     'enable-cache' => true,
     'enable-storage' => true, // enables use of queries stored in files
     'allow-deploy' => true, // whether to allow ADB to create the database, defaults to true
-    'cache-dir' => __DIR__ . '/cache',
-    'error-log-file' => __DIR__ . '/../../error.log',
+    'cache-dir' => '/var/www/sm/cache',
+    'error-log-file' => '/var/www/sm/error.log',
     'options' => [
         'buffer_results' => true, // required for mysql and pgsql
         // if enabled, all results will be buffered. This option is required for ADB to work
