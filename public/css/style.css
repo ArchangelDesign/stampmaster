@@ -146,6 +146,41 @@ body {
     z-index: 9999;
 }
 
+.stamp-type-box {
+    float:left;
+    display:block;
+    width:150px;
+    height:200px;
+    background-color: white;
+    border:1px solid silver;
+    position:relative;
+}
+
+.stamp-type-box img {
+    position:absolute;
+    width:120px;
+    height:120px;
+    top:10px;
+    left:15px;
+    border:1px solid silver;
+}
+
+.stamp-type-box .manufacturer {
+    position:absolute;
+    top:130px;
+    width:120px;
+    left:15px;
+    text-align: center;
+}
+
+.stamp-type-box .name {
+    position:absolute;
+    top:150px;
+    width:120px;
+    left:15px;
+    text-align: center;
+}
+
 @MEDIA ( max-width : 480px) {
 	.test-div {
 		background-color: grey;
