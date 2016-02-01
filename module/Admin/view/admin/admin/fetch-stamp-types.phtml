@@ -1,7 +1,7 @@
 <?php foreach ($stamps as $stamp) {?>
 
 <div class="stamp-type-box">
-    <img src="<?php echo $this->basePath('/')?>stamp-img/empty.jpg">
+    <img src="<?php echo $this->basePath('/') . \SmConfig::getImagePublicPath() . $stamp['thumbnail']?>">
     <h4 class="manufacturer"><?php echo $stamp['manufacturer']?></h4>
     <h4 class="name"><?php echo $stamp['stamp_name']?></h4>
 </div>
