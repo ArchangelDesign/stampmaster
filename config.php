@@ -11,4 +11,5 @@ class SmConfig
 {
     const domain    = 'sm.dev';
     const http      = 'http://sm.dev';
+    const imagePath = '/var/www/sm/public/stamp-images/';
 }

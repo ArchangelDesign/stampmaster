@@ -13,10 +13,10 @@
         <input type="text" class="form-control" name="manufacturer">
 
         <p class="reg-form-field-desc">Thumbnail</p>
-        <input class="form-control" type="file" name="thumbnail">
+        <input id="st_thumbnail" class="form-control" type="file" name="thumbnail">
 
         <p class="reg-form-field-desc">Large image</p>
-        <input class="form-control" type="file" name="image">
+        <input id="st_image" class="form-control" type="file" name="image">
 
         <p class="reg-form-field-desc"
            style="width:70px; float: left; margin-left:2px;">Width</p>
@@ -72,7 +72,8 @@
         formData.append('height', height);
         formData.append('mass', weight);
 
-        // formData.append('avatar', $('#avatar').get(0).files[0]);
+        formData.append('thumbnail', $('#st_thumbnail').get(0).files[0]);
+        formData.append('image', $('#st_image').get(0).files[0]);
         
 
         var req = $.ajax({
