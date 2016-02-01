@@ -22,10 +22,25 @@ class StampStorage extends AbstractStorage
             unset($data['image']);
             unset($data['thumbnail']);
             $id = $this->_db->insert('stamp_types', $data);
-            if (isset($_FILES['thumbnail'])) {
-                error_log(print_r($_FILES, true));
-                $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
+            if (isset($_FILES['thumbnail'])) {               
+                $thumbnailFileName = $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
+            } else {
+                $thumbnailFileName = "no-thumbnail.jpg";
             }
+            if (isset($_FILES['image'])) {
+                $imageFileName = $this->uploadImage($_FILES['image']['tmp_name']);
+            } else {
+                $imageFileName = "no-image.jpg";
+            }
+            
+            $this->_db->update(
+                    'stamp_types', 
+                    [
+                        'id' => $id, 
+                        'thumbnail' => $thumbnailFileName,
+                        'large_image' => $imageFileName,
+                    ]
+                    );
             $message = 'New stamp type created successfully.';
             $code = 200;
         } catch (\Exception $e) {
@@ -66,11 +81,49 @@ class StampStorage extends AbstractStorage
                 $ratio = $h/$w;
                 $resized = imagescale($image, 150, 150 * $ratio);
                 break;
+            default:
+                $ratio = $w/$h;
+                $resized = imagescale($image, 150 * $ratio, 150);
         }
-       
-        imagejpeg($resized, \SmConfig::imagePath . 'test.jpg', 40);
+        $filename = md5(time()) . '.jpg';
+        imagejpeg($resized, \SmConfig::imagePath . $filename, 40);
         imagedestroy($image);
-        //imgaedestroy($resized);
+        imagedestroy($resized);
+        return $filename;
+    }
+    
+    private function uploadImage($path)
+    {
+        $imageInfo = getimagesize($path);
+        $w = $imageInfo[0];
+        $h = $imageInfo[1];
+        $aspect = 'box';
+        if ($h > $w) {
+            $aspect = 'vertical';
+        } elseif ($w > $h) {
+            $aspect = 'horizontal';
+        }
+        $image = $this->loadImage($path);
+        
+        if ($image === false) {
+            error_log('invalid image ' . $path);
+            return false;
+        }
+        switch ($aspect) {
+            case 'box':
+            case 'horizontal':
+                $ratio = $h/$w;
+                $resized = imagescale($image, 900, 900 * $ratio);
+                break;
+            default:
+                $ratio = $w/$h;
+                $resized = imagescale($image, 900 * $ratio, 900);
+        }
+        $filename = md5(time()) . '.jpg';
+        imagejpeg($resized, \SmConfig::imagePath . $filename, 60);
+        imagedestroy($image);
+        imagedestroy($resized);
+        return $filename;
     }
     
     private function loadImage($path) 
