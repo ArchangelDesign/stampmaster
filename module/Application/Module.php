@@ -17,6 +17,19 @@ class Module
             ->getServiceManager()
             ->get('MvcTranslator')
             ->setLocale('pl_PL');
+
+        try {
+            $throw = false;
+            $adb = $e->getApplication()->getServiceManager()->get('adb');
+            $conf = $adb->fetchOne('config');
+            if (empty($conf)) {
+                $throw = true;
+            }
+        } catch (\Exception $e) {
+            $throw = true;
+        }
+        if ($throw)
+            throw new \Exception("StampMaster bootstrap database check failed. Check your configuration.");
     }
 
     public function getConfig()
