@@ -11,7 +11,7 @@ class SmConfig
 {
     const domain    = 'sm.dev';
     const http      = 'http://sm.dev';
-    const cacheDir  = __DIR__ . '/cache';
+    const cacheDir  = '/var/www/sm/data/cache';
     public static $configTable = [
         'cacheConfig'       => '0',
     ];
