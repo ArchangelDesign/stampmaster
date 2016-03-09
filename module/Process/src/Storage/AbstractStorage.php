@@ -13,7 +13,7 @@ use ArchangelDB\ADB2;
 abstract class AbstractStorage
 {
     /**
-     * @var ArchangelDB\ADB2;
+     * @var \ArchangelDB\ADB2;
      */
     protected $_db;
 

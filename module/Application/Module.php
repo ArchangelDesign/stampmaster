@@ -21,8 +21,8 @@ class Module
         try {
             $throw = false;
             $adb = $e->getApplication()->getServiceManager()->get('adb');
-            $conf = $adb->fetchOne('config');
-            if (empty($conf)) {
+            $conf = $adb->tableExists('config');
+            if (!$conf) {
                 $throw = true;
             }
         } catch (\Exception $e) {
