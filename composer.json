@@ -1,6 +1,6 @@
 {
-  "name" : "zendframework/skeleton-application",
-  "description" : "Skeleton Application for ZF2",
+  "name" : "StampMaster",
+  "description" : "Managing application for stamp production companies",
   "require" : {
     "php" : ">=5.5",
     "zendframework/zendframework" : "2.3.*"

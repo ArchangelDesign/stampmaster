@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `sm` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
-USE `sm`;
--- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: sm
+-- Host: localhost    Database: sm
 -- ------------------------------------------------------
--- Server version	5.5.44-0ubuntu0.14.04.1
+-- Server version	5.5.46-0ubuntu0.14.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +14,56 @@ USE `sm`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `sm_config`
+--
+
+DROP TABLE IF EXISTS `sm_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_name` varchar(150) DEFAULT NULL,
+  `c_value` varchar(255) DEFAULT NULL,
+  `extended` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_config`
+--
+
+LOCK TABLES `sm_config` WRITE;
+/*!40000 ALTER TABLE `sm_config` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sm_config_extension`
+--
+
+DROP TABLE IF EXISTS `sm_config_extension`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_config_extension` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_value` longtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_config_extension`
+--
+
+LOCK TABLES `sm_config_extension` WRITE;
+/*!40000 ALTER TABLE `sm_config_extension` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_config_extension` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sm_stamp_types`
@@ -42,6 +90,15 @@ CREATE TABLE `sm_stamp_types` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_stamp_types`
+--
+
+LOCK TABLES `sm_stamp_types` WRITE;
+/*!40000 ALTER TABLE `sm_stamp_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_stamp_types` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sm_users`
@@ -77,8 +134,17 @@ CREATE TABLE `sm_users` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AVG_ROW_LENGTH=16384;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AVG_ROW_LENGTH=16384;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_users`
+--
+
+LOCK TABLES `sm_users` WRITE;
+/*!40000 ALTER TABLE `sm_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -89,4 +155,4 @@ CREATE TABLE `sm_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-02 10:53:34
+-- Dump completed on 2016-03-09  7:01:16
