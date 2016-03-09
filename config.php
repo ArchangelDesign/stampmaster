@@ -15,4 +15,14 @@ class SmConfig
     public static $configTable = [
         'cacheConfig'       => '0',
     ];
+    const imagePath = '/var/www/sm/public/stamp-images/';
+    const imagePublicPath = 'stamp-images/';
+
+    public static function getImagePublicPath()
+    {
+        if (strpos(self::imagePublicPath, '/') != strlen(self::imagePublicPath)-1) {
+            return self::imagePublicPath . '/';
+        }
+        return self::imagePublicPath;
+    }
 }

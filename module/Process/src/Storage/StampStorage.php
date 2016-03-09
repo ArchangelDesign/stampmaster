@@ -17,8 +17,30 @@ class StampStorage extends AbstractStorage
     
     public function insertStampType($data)
     {        
-        try {
-            $res = $this->_db->insert('stamp_types', $data);
+        try {           
+            $data['date_created'] = date('Y-m-d H:i:s', time());
+            unset($data['image']);
+            unset($data['thumbnail']);
+            $id = $this->_db->insert('stamp_types', $data);
+            if (isset($_FILES['thumbnail'])) {               
+                $thumbnailFileName = $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
+            } else {
+                $thumbnailFileName = "no-thumbnail.jpg";
+            }
+            if (isset($_FILES['image'])) {
+                $imageFileName = $this->uploadImage($_FILES['image']['tmp_name']);
+            } else {
+                $imageFileName = "no-image.jpg";
+            }
+            
+            $this->_db->update(
+                    'stamp_types', 
+                    [
+                        'id' => $id, 
+                        'thumbnail' => $thumbnailFileName,
+                        'large_image' => $imageFileName,
+                    ]
+                    );
             $message = 'New stamp type created successfully.';
             $code = 200;
         } catch (\Exception $e) {
@@ -26,7 +48,7 @@ class StampStorage extends AbstractStorage
             $code = 500;
         }
         return [
-            'code' => 500,
+            'code' => $code,
             'message' => $message,
         ];
     }
@@ -34,5 +56,90 @@ class StampStorage extends AbstractStorage
     public function deleteStampType($id)
     {
         $this->_db->deleteRecords(['id' => $id]);
+    }
+    
+    private function uploadThumbnail($path)
+    {
+        $imageInfo = getimagesize($path);
+        $w = $imageInfo[0];
+        $h = $imageInfo[1];
+        $aspect = 'box';
+        if ($h > $w) {
+            $aspect = 'vertical';
+        } elseif ($w > $h) {
+            $aspect = 'horizontal';
+        }
+        $image = $this->loadImage($path);
+        
+        if ($image === false) {
+            error_log('invalid image ' . $path);
+            return false;
+        }
+        switch ($aspect) {
+            case 'box':
+            case 'horizontal':
+                $ratio = $h/$w;
+                $resized = imagescale($image, 150, 150 * $ratio);
+                break;
+            default:
+                $ratio = $w/$h;
+                $resized = imagescale($image, 150 * $ratio, 150);
+        }
+        $filename = md5(time()) . '.jpg';
+        imagejpeg($resized, \SmConfig::imagePath . $filename, 40);
+        imagedestroy($image);
+        imagedestroy($resized);
+        return $filename;
+    }
+    
+    private function uploadImage($path)
+    {
+        $imageInfo = getimagesize($path);
+        $w = $imageInfo[0];
+        $h = $imageInfo[1];
+        $aspect = 'box';
+        if ($h > $w) {
+            $aspect = 'vertical';
+        } elseif ($w > $h) {
+            $aspect = 'horizontal';
+        }
+        $image = $this->loadImage($path);
+        
+        if ($image === false) {
+            error_log('invalid image ' . $path);
+            return false;
+        }
+        switch ($aspect) {
+            case 'box':
+            case 'horizontal':
+                $ratio = $h/$w;
+                $resized = imagescale($image, 900, 900 * $ratio);
+                break;
+            default:
+                $ratio = $w/$h;
+                $resized = imagescale($image, 900 * $ratio, 900);
+        }
+        $filename = md5(time()) . '.jpg';
+        imagejpeg($resized, \SmConfig::imagePath . $filename, 60);
+        imagedestroy($image);
+        imagedestroy($resized);
+        return $filename;
+    }
+    
+    private function loadImage($path) 
+    {
+        $type = getimagesize($path);
+        
+        switch ($type[2]) {
+            case IMAGETYPE_GIF:
+                return imagecreatefromgif($path);
+                break;
+            case IMAGETYPE_JPEG:
+                return imagecreatefromjpeg($path);
+                break;
+            case IMAGETYPE_BMP:
+                return imagecreatefromwbmp($path);
+        }
+        return false;
     }
 }

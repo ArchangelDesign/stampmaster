@@ -25,7 +25,10 @@ return [
     'enable-storage' => true, // enables use of queries stored in files
     'allow-deploy' => true, // whether to allow ADB to create the database, defaults to true
     'cache-dir' => __DIR__ . '/cache',
-    'error-log-file' => __DIR__ . '/../../error.log',
+    'error-log-file' => __DIR__ . '/error.log',
+    'suppress-exceptions' => false, // not recommended for production servers
+    'throw-engine-message' => true, // if true and suppression is off, error from DB driver will be presented instead of Zend DB
+    'query-log-file' => __DIR__ . '/query.log', // if set, all queries are stored there
     'options' => [
         'buffer_results' => true, // required for mysql and pgsql
         // if enabled, all results will be buffered. This option is required for ADB to work

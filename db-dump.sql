@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 -- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: sm
 -- ------------------------------------------------------
 -- Server version	5.5.46-0ubuntu0.14.04.2
+=======
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+--
+-- Host: localhost    Database: sm
+-- ------------------------------------------------------
+-- Server version	5.6.17
+>>>>>>> cc4b86e0a1fe2dcd811847c59be15b22800d6e00
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,6 +31,7 @@ DROP TABLE IF EXISTS `sm_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sm_config` (
+<<<<<<< HEAD
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `c_name` varchar(150) DEFAULT NULL,
   `c_value` varchar(255) DEFAULT NULL,
@@ -30,6 +39,17 @@ CREATE TABLE `sm_config` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+=======
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `c_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `c_value` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `c_default` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `c_mod` datetime DEFAULT NULL,
+  `c_usr` int(11) DEFAULT NULL,
+  `c_ext` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+>>>>>>> cc4b86e0a1fe2dcd811847c59be15b22800d6e00
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +62,7 @@ LOCK TABLES `sm_config` WRITE;
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD
 -- Table structure for table `sm_config_extension`
 --
 
@@ -63,6 +84,28 @@ CREATE TABLE `sm_config_extension` (
 LOCK TABLES `sm_config_extension` WRITE;
 /*!40000 ALTER TABLE `sm_config_extension` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sm_config_extension` ENABLE KEYS */;
+=======
+-- Table structure for table `sm_config_ext`
+--
+
+DROP TABLE IF EXISTS `sm_config_ext`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_config_ext` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_value` longtext COLLATE utf8_bin,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_config_ext`
+--
+
+LOCK TABLES `sm_config_ext` WRITE;
+/*!40000 ALTER TABLE `sm_config_ext` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_config_ext` ENABLE KEYS */;
+>>>>>>> cc4b86e0a1fe2dcd811847c59be15b22800d6e00
 UNLOCK TABLES;
 
 --
@@ -75,6 +118,7 @@ DROP TABLE IF EXISTS `sm_stamp_types`;
 CREATE TABLE `sm_stamp_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stamp_name` varchar(70) COLLATE utf8_bin NOT NULL,
+  `description` longtext COLLATE utf8_bin NOT NULL,
   `thumbnail` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `large_image` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `width` float DEFAULT NULL,
@@ -88,7 +132,7 @@ CREATE TABLE `sm_stamp_types` (
   `active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +141,10 @@ CREATE TABLE `sm_stamp_types` (
 
 LOCK TABLES `sm_stamp_types` WRITE;
 /*!40000 ALTER TABLE `sm_stamp_types` DISABLE KEYS */;
+<<<<<<< HEAD
+=======
+INSERT INTO `sm_stamp_types` VALUES (1,'','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1);
+>>>>>>> cc4b86e0a1fe2dcd811847c59be15b22800d6e00
 /*!40000 ALTER TABLE `sm_stamp_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,4 +203,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2016-03-09  7:01:16
+=======
+-- Dump completed on 2016-03-04 19:42:50
+>>>>>>> cc4b86e0a1fe2dcd811847c59be15b22800d6e00
