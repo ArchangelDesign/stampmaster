@@ -22,6 +22,9 @@ class ConfigStorage extends AbstractStorage
         parent::__construct($db);
     }
 
+    /**
+     * @return bool
+     */
     private function isCacheEnabled()
     {
         if (is_bool($this->cacheEnabled)) {
@@ -30,6 +33,10 @@ class ConfigStorage extends AbstractStorage
         return $this->cacheEnabled = $this->fetchValue('cacheConfig');
     }
 
+    /**
+     * @param $name
+     * @return bool|string
+     */
     private function fetchValue($name)
     {
         $value = $this->_db->fetchOne('config', ['c_name' => $name]);
@@ -47,16 +54,29 @@ class ConfigStorage extends AbstractStorage
         return $result;
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     private function fetchFromCache($name)
     {
 
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     public function getValue($name)
     {
 
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     public function setValue($name, $value)
     {
 
