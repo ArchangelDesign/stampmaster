@@ -59,13 +59,13 @@ class ConfigStorage extends AbstractStorage
 
     /**
      * Return single value from cache
-     * 
+     *
      * @param $name
      * @return string
      */
     private function fetchFromCache($name)
     {
-        return $this->cache->getValue($name);
+        return $this->cache->getValue('conf_' . $name);
     }
 
     /**
@@ -78,7 +78,7 @@ class ConfigStorage extends AbstractStorage
     private function storeInCache($name, $value)
     {
         if ($this->isCacheEnabled()) {
-            $this->cache->setValue($name, $value);
+            $this->cache->setValue('conf_' . $name, $value);
         }
     }
 
