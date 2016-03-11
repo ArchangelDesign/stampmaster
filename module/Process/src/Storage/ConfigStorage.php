@@ -58,6 +58,8 @@ class ConfigStorage extends AbstractStorage
     }
 
     /**
+     * Return single value from cache
+     * 
      * @param $name
      * @return string
      */
@@ -66,6 +68,13 @@ class ConfigStorage extends AbstractStorage
         return $this->cache->getValue($name);
     }
 
+    /**
+     * Stores in cache only if enabled
+     *
+     * @param $name
+     * @param $value
+     * @return void
+     */
     private function storeInCache($name, $value)
     {
         if ($this->isCacheEnabled()) {
