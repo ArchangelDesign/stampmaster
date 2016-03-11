@@ -8,6 +8,7 @@
 
 namespace Storage;
 
+use Storage\CacheStorage;
 
 class ConfigStorage extends AbstractStorage
 {
@@ -20,6 +21,7 @@ class ConfigStorage extends AbstractStorage
     public function __construct($db)
     {
         parent::__construct($db);
+        $this->cache = new CacheStorage();
     }
 
     /**
@@ -51,6 +53,7 @@ class ConfigStorage extends AbstractStorage
         } else {
             $result = $value['c_value'];
         }
+        $this->storeInCache($name, $value);
         return $result;
     }
 
@@ -60,7 +63,14 @@ class ConfigStorage extends AbstractStorage
      */
     private function fetchFromCache($name)
     {
+        return $this->cache->getValue($name);
+    }
 
+    private function storeInCache($name, $value)
+    {
+        if ($this->isCacheEnabled()) {
+            $this->cache->setValue($name, $value);
+        }
     }
 
     /**
@@ -69,7 +79,14 @@ class ConfigStorage extends AbstractStorage
      */
     public function getValue($name)
     {
-
+        $value = null;
+        if ($this->isCacheEnabled()) {
+            $value = $this->fetchFromCache($name);
+        }
+        if (empty($value)) {
+            $value = $this->fetchValue($name);
+        }
+        return $value;
     }
 
     /**
@@ -79,6 +96,12 @@ class ConfigStorage extends AbstractStorage
      */
     public function setValue($name, $value)
     {
-
+        $previousValue = $this->_db->fetchOne('config', ['c_name' => $name]);
+        if (empty($previousValue)) {
+            $this->_db->insert('config', ['c_name' => $name, 'c_value' => $value]);
+        } else {
+            $this->_db->update('config', ['c_name' => $name, 'c_value' => $value], 'c_value');
+        }
+        $this->storeInCache($name, $value);
     }
 }
