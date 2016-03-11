@@ -3,6 +3,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
+            'Admin\Controller\Config' => 'Admin\Controller\ConfigController',
         ),
     ),
     'router' => array(
@@ -72,6 +73,20 @@ return array(
                 'may_terminate' => true,
             ),
 
+            /* Configuration */
+
+            'config-general' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/admin/general-configuration',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Config',
+                        'action'        => 'generalConfig',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'view_manager' => array(
