@@ -21,11 +21,13 @@ class CacheStorage
     public function __construct()
     {
         $this->container = StorageFactory::factory([
-            'name' => 'Filesystem',
-            'options' => array(
-                'cache_dir' => \SmConfig::cacheDir,
-                'ttl' => 1500,
-            ),
+            'adapter' => [
+                'name' => 'Filesystem',
+                'options' => [
+                    'cache_dir' => \SmConfig::cacheDir,
+                    'ttl' => 30, // !!!debug value
+                ],
+            ]
         ]);
 
     }
