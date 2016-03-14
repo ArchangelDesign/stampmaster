@@ -21,7 +21,27 @@ class ConfigStorage extends AbstractStorage
     public function __construct($db)
     {
         parent::__construct($db);
+        $this->deployConfig();
         $this->cache = new CacheStorage();
+    }
+
+    private function deployConfig()
+    {
+        $config = \SmConfig::$configTable;
+        $currentConfig = $this->_db->fetchAll('config');
+
+        foreach ($config as $k => $v) {
+            $exists = false;
+            foreach ($currentConfig as $c) {
+                if ($c['c_name'] == $k) {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                $this->_db->insert('config', ['c_name' => $k, 'c_value' => $v]);
+            }
+        }
     }
 
     /**
@@ -44,7 +64,7 @@ class ConfigStorage extends AbstractStorage
         $value = $this->_db->fetchOne('config', ['c_name' => $name]);
         $result = '';
         if (is_null($value)) {
-            $this->_db->insert($name, ['c_name' => $name, 'c_value' => null]);
+            $this->_db->insert('config', ['c_name' => $name, 'c_value' => null]);
             return false;
         }
         if ($value['extended'] > 0) {
@@ -53,7 +73,7 @@ class ConfigStorage extends AbstractStorage
         } else {
             $result = $value['c_value'];
         }
-        $this->storeInCache($name, $value);
+
         return $result;
     }
 
@@ -95,6 +115,7 @@ class ConfigStorage extends AbstractStorage
         if (empty($value)) {
             $value = $this->fetchValue($name);
         }
+        $this->storeInCache($name, $value);
         return $value;
     }
 
@@ -112,5 +133,10 @@ class ConfigStorage extends AbstractStorage
             $this->_db->update('config', ['c_name' => $name, 'c_value' => $value], 'c_value');
         }
         $this->storeInCache($name, $value);
+    }
+
+    public function getConfiguration($level)
+    {
+        return $this->_db->fetchAll('config');
     }
 }
