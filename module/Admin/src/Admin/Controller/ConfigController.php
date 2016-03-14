@@ -11,6 +11,7 @@ namespace Admin\Controller;
 
 use Common\AbstractSMController;
 use Process\StorageProcess;
+use Storage\ConfigStorage;
 use Storage\UserStorage;
 use Storage\StampStorage;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -20,6 +21,11 @@ class ConfigController extends AbstractSMController
 {
     public function generalConfigAction()
     {
-
+        $storage = new ConfigStorage($this->serviceLocator->get('adb'));
+        $v = $storage->getValue('test-value');
+        echo $v;
+        return [
+            'entireConfig' => $storage->getConfiguration(null),
+        ];
     }
 }
