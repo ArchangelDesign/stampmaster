@@ -25,6 +25,10 @@ class ConfigStorage extends AbstractStorage
         $this->cache = new CacheStorage();
     }
 
+    /**
+     * Add non-existing values to config table
+     * from config file
+     */
     private function deployConfig()
     {
         $config = \SmConfig::$configTable;
