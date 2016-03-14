@@ -24,7 +24,7 @@ return [
     'enable-cache' => true,
     'enable-storage' => true, // enables use of queries stored in files
     'allow-deploy' => true, // whether to allow ADB to create the database, defaults to true
-    'cache-dir' => __DIR__ . '/cache',
+    'cache-dir' => __DIR__ . '/data/cache',
     'error-log-file' => __DIR__ . '/error.log',
     'suppress-exceptions' => false, // not recommended for production servers
     'throw-engine-message' => true, // if true and suppression is off, error from DB driver will be presented instead of Zend DB

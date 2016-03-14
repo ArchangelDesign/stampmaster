@@ -13,7 +13,7 @@ class SmConfig
     const http      = 'http://sm.dev';
     const cacheDir  = '/var/www/sm/data/cache';
     public static $configTable = [
-        'cacheConfig'       => '0',
+        'cacheConfig'       => '1',
     ];
     const imagePath = '/var/www/sm/public/stamp-images/';
     const imagePublicPath = 'stamp-images/';
