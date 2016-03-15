@@ -26,6 +26,12 @@ class ConfigController extends AbstractSMController
         echo $v;
         return [
             'entireConfig' => $storage->getConfiguration(null),
+            'location'  => self::LOCATION_ADMIN_CONFIG,
         ];
+    }
+
+    public function setConfigValueAction()
+    {
+
     }
 }

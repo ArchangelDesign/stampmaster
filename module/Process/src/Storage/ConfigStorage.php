@@ -16,6 +16,9 @@ class ConfigStorage extends AbstractStorage
      * @var CacheStorage
      */
     private $cache = null;
+    /**
+     * @var null|bool
+     */
     private $cacheEnabled = null;
 
     public function __construct($db)
