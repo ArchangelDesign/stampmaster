@@ -87,6 +87,19 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+
+            'config-set-value' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/admin/set-config-value',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Config',
+                        'action'        => 'setConfigValue',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'view_manager' => array(
