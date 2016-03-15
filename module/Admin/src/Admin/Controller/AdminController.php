@@ -22,21 +22,21 @@ class AdminController extends AbstractSMController
         $userStorage = new UserStorage($this->serviceLocator->get('adb'));
         return array(
             'allUsers' => $userStorage->fetchAllUsers(),
-            'location' => 1
+            'location' => self::LOCATION_ADMIN_DASHBOARD,
         );
     }
 
     public function ordersAction()
     {
         return array(
-            'location' => 2
+            'location' => self::LOCATION_ADMIN_ORDERS,
         );
     }
 
     public function stampTypesAction()
     {
         return array(
-            'location' => 3
+            'location' => self::LOCATION_ADMIN_STAMPTYPES,
         );
     }
 
