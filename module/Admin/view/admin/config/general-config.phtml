@@ -1,7 +1,14 @@
 <?php echo $this->partial('admin/admin/menu.phtml') ?>
 
+<div class="panel panel-primary">
+    <div class="panel-heading"><?php echo $this->translate('Configuration')?></div>
+    <div class="panel-body">
+        <table class="config-table">
+            <tr></tr>
+        </table>
+    </div>
+</div>
+
 <?php
-
 var_dump($this->entireConfig)
-
 ?>
