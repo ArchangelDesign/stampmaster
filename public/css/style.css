@@ -127,6 +127,16 @@ body {
     display: none;
 }
 
+.config-value-window {
+    display: block;
+    position: fixed;
+    width: 450px;
+    height: 500px;
+    left: calc(50% - 225px);
+    top: 5px;
+    display: none;
+}
+
 #global-overlay {
     position: absolute;
     left: 0px;

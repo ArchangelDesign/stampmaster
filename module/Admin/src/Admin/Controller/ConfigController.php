@@ -16,6 +16,7 @@ use Storage\UserStorage;
 use Storage\StampStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\View;
 
 class ConfigController extends AbstractSMController
 {
@@ -32,6 +33,8 @@ class ConfigController extends AbstractSMController
 
     public function setConfigValueAction()
     {
-
+        $vm = new ViewModel();
+        $vm->setTerminal(true);
+        return $vm;
     }
 }
