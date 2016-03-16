@@ -127,6 +127,15 @@ class ConfigStorage extends AbstractStorage
     }
 
     /**
+     * @param $id
+     * @return array
+     */
+    public function getRecord($id)
+    {
+        return $this->_db->fetchOne('config', ['id' => $id]);
+    }
+
+    /**
      * @param $name
      * @param $value
      * @return string
