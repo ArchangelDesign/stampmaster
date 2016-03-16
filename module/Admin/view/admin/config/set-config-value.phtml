@@ -1,6 +1,22 @@
+<?php if (isset($this->error)) { ?>
+<div class="alert alert-danger">
+    <?php echo $this->translate('Something went wrong. Please reload the page.') ?>
+</div>
+<?php } else { ?>
+
 <div class="panel panel-primary">
     <div class="panel-heading">Edit</div>
     <div class="panel-body">
-
+        <input type="text" name="token" value="<?php echo $this->token?>" class="hidden">
+        <input type="text" name="id" value="<?php echo $this->id?>" class="hidden">
+        <p class="reg-form-field-desc">Name</p>
+        <input type="text" name="c_name" value="<?php echo $this->c_name?>" class="form-control" readonly>
+        <p class="reg-form-field-desc">Value</p>
+        <input type="text" name="c_value" value="<?php echo $this->c_value?>" class="form-control">
+        <p class="reg-form-field-desc">Extended value</p>
+        <textarea style="height:80px" name="e_value" class="form-control"><?php echo $this->e_value?></textarea>
+        <button class="btn btn-success pull-right" style="margin-top:10px">Save</button>
     </div>
 </div>
+
+<?php } ?>

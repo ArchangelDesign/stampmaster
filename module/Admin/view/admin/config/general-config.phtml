@@ -39,10 +39,10 @@ var_dump($this->entireConfig)
     {
         $(".config-value-window").fadeIn();
         $("#global-overlay").fadeIn();
-        $(".config-value-window").load('<?php echo $this->url('config-set-value')?>');
+        $(".config-value-window").load('<?php echo $this->url('config-set-value')?>?id='+id);
     }
 </script>
 
-<div class="config-value-window modal-box" style="border:1px solid blue">
+<div class="config-value-window modal-box">
 
 </div>

@@ -15,4 +15,5 @@ return array(
     'Common\AbstractSMController'           => __DIR__ . '/src/Common/AbstractSMController.php',
     'Common\XmlResponder'                   => __DIR__ . '/src/Common/XmlResponder.php',
     'Common\Version'                        => __DIR__ . '/src/Common/Version.php',
+    'Common\Common'                         => __DIR__ . '/src/Common/Common.php',
 );

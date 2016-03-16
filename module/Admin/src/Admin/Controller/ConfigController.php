@@ -10,8 +10,10 @@
 namespace Admin\Controller;
 
 use Common\AbstractSMController;
+use Common\Common;
 use Process\StorageProcess;
 use Storage\ConfigStorage;
+use Storage\SessionStorage;
 use Storage\UserStorage;
 use Storage\StampStorage;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -35,6 +37,30 @@ class ConfigController extends AbstractSMController
     {
         $vm = new ViewModel();
         $vm->setTerminal(true);
+        $sessionStorage = new SessionStorage();
+        $configStorage = new ConfigStorage($this->serviceLocator->get('adb'));
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            $id = $this->params()->fromQuery('id');
+            if ($id === null) {
+                // no config value id given
+                $vm->setVariable('error', true);
+                return $vm;
+            }
+            $currentValue = $configStorage->getRecord($id);
+            $token = Common::generateToken();
+            $vm->setVariables([
+                    'token'     => $token,
+                    'id'        => $id,
+                    'c_name'    => $currentValue['c_name'],
+                    'c_value'   => $currentValue['c_value'],
+                    'e_value'   => $currentValue['e_value'],
+                ]
+            );
+            $sessionStorage->setValue('set-config-value-token', $token);
+            return $vm;
+        }
         return $vm;
     }
 }

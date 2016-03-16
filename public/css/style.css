@@ -131,9 +131,9 @@ body {
     display: block;
     position: fixed;
     width: 450px;
-    height: 500px;
+    height: 327px;
     left: calc(50% - 225px);
-    top: 5px;
+    top: 25px;
     display: none;
 }
 

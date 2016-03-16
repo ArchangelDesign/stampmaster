@@ -132,7 +132,15 @@ class ConfigStorage extends AbstractStorage
      */
     public function getRecord($id)
     {
-        return $this->_db->fetchOne('config', ['id' => $id]);
+        $records = $this->_db->executeRawQuery(
+            "select c.*, e.c_value as e_value from {config} c "
+            . "left join {config_extension} e on c.extended=e.id "
+            . "where c.id=? limit 1", [$id]
+        )->toArray();
+        if (!empty($records)) {
+            return array_shift($records);
+        }
+        return [];
     }
 
     /**
