@@ -23,7 +23,11 @@
         $("#change-config-value").click(
             function() {
                 var postData = {
-                    'token' : $("input[name=token]").val()
+                    'token'     : $("input[name=token]").val(),
+                    'id'        : $("input[name=id]").val(),
+                    'c_name'    : $("input[name=c_name").val(),
+                    'c_value'   : $("input[name=c_value").val(),
+                    'e_value'   : $("textarea[name=e_value]").val()
                 };
                 var result = $.ajax({
                     method : "POST",
@@ -33,7 +37,12 @@
 
                 result.success(function(response) {
                     console.log(response);
-                    alert("Value has been updated");
+                    code = $(response).find('code')[0].innerText;
+                    msg = $(response).find('message')[0].innerText;
+                    if (code != 200) {
+                        alert('<?php echo $this->translate("Operation failed with message")?>: '+msg);
+                    }
+                    location.reload();
                 });
             }
         );

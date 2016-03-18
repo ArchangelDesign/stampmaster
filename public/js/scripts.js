@@ -43,7 +43,6 @@ function hideOverlay()
  * close any open dialogs and remove overlay
  */
 $(document).on('click', '#global-overlay', function() {
-    console.log('sdfsdf');
     $(".modal-box").fadeOut();
     hideOverlay();
 });

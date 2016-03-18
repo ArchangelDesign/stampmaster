@@ -11,6 +11,7 @@ namespace Admin\Controller;
 
 use Common\AbstractSMController;
 use Common\Common;
+use Common\XmlResponder;
 use Process\StorageProcess;
 use Storage\ConfigStorage;
 use Storage\SessionStorage;
@@ -62,10 +63,34 @@ class ConfigController extends AbstractSMController
             return $vm;
         }
 
+        $vm->setTemplate('admin/config/empty.phtml');
         $post = $request->getPost();
         $token = $post['token'];
+        $storedToken = $sessionStorage->getValue('set-config-value-token');
+        $sessionStorage->setValue('set-config-value-token', null);
 
-        $vm->setTemplate('admin/config/empty.phtml');
+        if ($token != $storedToken) {
+            echo XmlResponder::generalResponse('300', 'Invalid token provided');
+            return $vm;
+        }
+
+        $id = isset($post['id'])?$post['id']:null;
+        $c_name = $post['c_name'];
+        $c_value = $post['c_value'];
+        $e_value = $post['e_value'];
+
+        $newId = $configStorage->setValue($c_name, $c_value);
+
+        if (!empty($e_value)) {
+            $configStorage->setExtendedValue($newId, $e_value);
+        } else {
+            // remove extension if exists
+            $rec = $configStorage->getRecord($newId);
+            if ($rec['extended'] > 0) {
+                $configStorage->removeExtension($rec['extended']);
+            }
+        }
+        echo XmlResponder::generalResponse('200', 'OK');
         return $vm;
     }
 }

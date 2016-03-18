@@ -71,8 +71,8 @@ class ConfigStorage extends AbstractStorage
         $value = $this->_db->fetchOne('config', ['c_name' => $name]);
         $result = '';
         if (is_null($value)) {
-            $this->_db->insert('config', ['c_name' => $name, 'c_value' => null]);
-            return false;
+            //$this->_db->insert('config', ['c_name' => $name, 'c_value' => null]);
+            return null;
         }
         if ($value['extended'] > 0) {
             $exVal = $this->_db->fetchOne('config_extension', ['id' => $value['extended']]);
@@ -146,17 +146,32 @@ class ConfigStorage extends AbstractStorage
     /**
      * @param $name
      * @param $value
-     * @return string
+     * @return int
      */
     public function setValue($name, $value)
     {
         $previousValue = $this->_db->fetchOne('config', ['c_name' => $name]);
         if (empty($previousValue)) {
-            $this->_db->insert('config', ['c_name' => $name, 'c_value' => $value]);
+            $id = $this->_db->insert('config', ['c_name' => $name, 'c_value' => $value]);
         } else {
-            $this->_db->update('config', ['c_name' => $name, 'c_value' => $value], 'c_value');
+            $this->_db->update('config', ['c_name' => $name, 'c_value' => $value], 'c_name');
+            $id = $previousValue['id'];
         }
         $this->storeInCache($name, $value);
+        return $id;
+    }
+
+    public function setExtendedValue($vId, $value)
+    {
+        $id = $this->_db->insert('config_extension', ['c_value' => $value]);
+        $this->_db->update('config', ['id' => $vId, 'extended' => $id]);
+        return $id;
+    }
+
+    public function removeExtension($id)
+    {
+        $this->_db->delete('config_extension', ['id' => $id]);
+        $this->_db->executeRawQuery("update {config} set extended=0 where extended=?", [$id]);
     }
 
     public function getConfiguration($level)
