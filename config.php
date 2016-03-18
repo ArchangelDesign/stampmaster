@@ -15,6 +15,7 @@ class SmConfig
     const cacheDir = 'f:\1work\stampmaster\data\cache';
     public static $configTable = [
         'cacheConfig'       => '1',
+        'company-name'      => 'The Stamp Company',
     ];
     const imagePath = '/var/www/sm/public/stamp-images/';
     const imagePublicPath = 'stamp-images/';

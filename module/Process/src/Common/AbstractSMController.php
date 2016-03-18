@@ -8,6 +8,7 @@
 
 namespace Common;
 
+use Storage\ConfigStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Storage\SessionStorage;
@@ -36,5 +37,6 @@ abstract class AbstractSMController extends AbstractActionController
         } else {
             $this->layout()->setVariable('userData', ['username' => 'not logged in']);
         }
+        $configStorage = new ConfigStorage($this->serviceLocator->get('ADB'));
     }
 }

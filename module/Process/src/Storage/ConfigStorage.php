@@ -174,6 +174,12 @@ class ConfigStorage extends AbstractStorage
         $this->_db->executeRawQuery("update {config} set extended=0 where extended=?", [$id]);
     }
 
+    /**
+     * Returns
+     * @param $level
+     * @return array
+     * @throws \Exception
+     */
     public function getConfiguration($level)
     {
         return $this->_db->executeRawQuery(
