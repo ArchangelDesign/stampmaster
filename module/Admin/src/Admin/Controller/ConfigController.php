@@ -61,6 +61,11 @@ class ConfigController extends AbstractSMController
             $sessionStorage->setValue('set-config-value-token', $token);
             return $vm;
         }
+
+        $post = $request->getPost();
+        $token = $post['token'];
+
+        $vm->setTemplate('admin/config/empty.phtml');
         return $vm;
     }
 }

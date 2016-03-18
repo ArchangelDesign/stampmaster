@@ -15,8 +15,28 @@
         <input type="text" name="c_value" value="<?php echo $this->c_value?>" class="form-control">
         <p class="reg-form-field-desc">Extended value</p>
         <textarea style="height:80px" name="e_value" class="form-control"><?php echo $this->e_value?></textarea>
-        <button class="btn btn-success pull-right" style="margin-top:10px">Save</button>
+        <button id="change-config-value" class="btn btn-success pull-right" style="margin-top:10px">Save</button>
     </div>
 </div>
+
+    <script>
+        $("#change-config-value").click(
+            function() {
+                var postData = {
+                    'token' : $("input[name=token]").val()
+                };
+                var result = $.ajax({
+                    method : "POST",
+                    url: "<?php echo $this->url('config-set-value')?>",
+                    data: postData
+                });
+
+                result.success(function(response) {
+                    console.log(response);
+                    alert("Value has been updated");
+                });
+            }
+        );
+    </script>
 
 <?php } ?>
