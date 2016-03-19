@@ -182,9 +182,17 @@ class ConfigStorage extends AbstractStorage
      */
     public function getConfiguration($level)
     {
-        return $this->_db->executeRawQuery(
+        $config = $this->_db->executeRawQuery(
             "select c.*, e.c_value as e_value from {config} c "
             . "left join {config_extension} e on c.extended=e.id"
         )->toArray();
+
+        $result = [];
+
+        foreach ($config as $conf) {
+            $result[$conf['c_name']] = $conf;
+        }
+
+        return $result;
     }
 }

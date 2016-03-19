@@ -16,6 +16,7 @@ class SmConfig
     public static $configTable = [
         'cacheConfig'       => '1',
         'company-name'      => 'The Stamp Company',
+        'page-title'        => 'The STamp Company Store Online',
     ];
     const imagePath = '/var/www/sm/public/stamp-images/';
     const imagePublicPath = 'stamp-images/';

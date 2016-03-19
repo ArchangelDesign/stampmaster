@@ -38,5 +38,6 @@ abstract class AbstractSMController extends AbstractActionController
             $this->layout()->setVariable('userData', ['username' => 'not logged in']);
         }
         $configStorage = new ConfigStorage($this->serviceLocator->get('ADB'));
+        $this->layout()->setVariable('configuration', $configStorage->getConfiguration(1));
     }
 }
