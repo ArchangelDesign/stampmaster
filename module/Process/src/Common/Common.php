@@ -26,11 +26,22 @@ class Common
      * @param \ArchangelDB\ADB2 $db
      * @param $table
      * @param $key
+     * @throws \Exception
+     * @return string
      */
     public static function generateUniqueToken(\ArchangelDB\ADB2 $db, $table, $key)
     {
         $token = self::generateToken();
-        $check = $db->fetchOne($table, [], $key);
-        
+        $check = $db->fetchOne($table, [$key => $token], $key);
+        $attempts = 0;
+        while (!empty($check)) {
+            $attempts++;
+            $token = self::generateToken();
+            $check = $db->fetchOne($table, [$key => $token], $key);
+            if ($attempts > 10) {
+                throw new \Exception("Unique token generation error. Too many attempts.");
+            }
+        }
+        return $token;
     }
 }
