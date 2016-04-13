@@ -89,9 +89,10 @@
                     <ul class="dropdown-menu">
                         <?php if ($loggedIn) { ?>
                             <li><a href="#">My account</a></li>
-
-
-                            <li><a href="#">Something else here</a></li>
+                            
+                            <li><a href="<?php echo $this->url('admin-dashboard') ?>">
+                                    <?php echo $this->translate('Administration') ?>
+                                </a></li>
                             <li role="separator" class="divider"></li>
                             <li><a
                                    href="<?php echo $this->url('logout-user')?>">
