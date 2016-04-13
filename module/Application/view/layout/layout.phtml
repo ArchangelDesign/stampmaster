@@ -1,5 +1,7 @@
 <?php echo $this->doctype(); ?>
 
+<?php $loggedIn = $this->loggedIn; ?>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -35,7 +37,7 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -45,7 +47,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="<?php echo $this->url('application') ?>">Stamp Master</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,29 +77,48 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <?php if ($loggedIn) {
+                            echo $userData['username'];
+                        } else {
+                            echo $this->translate("Account");
+                        }
+                        ?> <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <?php if ($loggedIn) { ?>
+                            <li><a href="#">My account</a></li>
+
+
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a
+                                   href="<?php echo $this->url('logout-user')?>">
+                                    <?php echo $this->translate('Logout')?>
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li>
+                                <a  href="<?php echo $this->url('login-user')?>">
+                                    <?php echo $this->translate('Login')?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('register-user')?>">
+                                    <?php echo $this->translate('Register')?>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </li>
+                <li>&nbsp;&nbsp;&nbsp;</li>
             </ul>
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 <!-- EO Navigation -->
-<?php
-$loggedIn = $this->loggedIn;
-if ($loggedIn):?>
-    <p class="pull-right">Logged in as <?php echo $userData['username'] ?></p>
-<a class="btn btn-danger" href="<?php echo $this->url('logout-user')?>"><?php echo $this->translate('Logout')?></a>
-<?php else: ?>
-<a class="btn btn-default"  href="<?php echo $this->url('login-user')?>"><?php echo $this->translate('Login')?></a>
-    <a class="btn btn-default" href="<?php echo $this->url('register-user')?>"><?php echo $this->translate('Register')?></a>
-<?php endif; ?>
 	<div class="container">
             <?php echo $this->content; ?>
         </div>
