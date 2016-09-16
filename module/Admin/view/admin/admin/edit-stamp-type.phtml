@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+	<div class="panel-heading"><?php echo $this->translate('Editing stamp type')?></div>
+	<div class="panel-body">
+		<?php
+			if ($error) { ?>
+				<div class="alert alert-danger"><?php echo $this->translate('Stamp type not found.')?></div>
+				<a class="btn btn-default" href="<?php echo $this->url('admin-stamp-types')?>">Back</a>
+		<?php
+			} else {
+		?>
+		<?php } ?>
+	</div>
+</div>
+<?php

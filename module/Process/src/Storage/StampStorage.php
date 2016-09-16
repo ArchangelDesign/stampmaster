@@ -14,6 +14,11 @@ class StampStorage extends AbstractStorage
     {
         return $this->_db->fetchAll('stamp_types');
     }
+
+    public function fetchStamp($id)
+	{
+		return $this->_db->fetchOne('stamp_types', ['id' => $id]);
+	}
     
     public function insertStampType($data)
     {        

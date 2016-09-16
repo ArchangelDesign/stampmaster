@@ -73,6 +73,18 @@ return array(
                 'may_terminate' => true,
             ),
 
+			'edit-stamp-type' => array(
+				'type'	=> 'Literal',
+				'options' => array(
+					'route'    => '/admin/edit-stamp-type',
+					'defaults' => array(
+						'__NAMESPACE__' => 'Admin\Controller',
+						'controller'    => 'Admin',
+						'action'        => 'editStampType',
+					),
+				),
+			),
+
             /* Configuration */
 
             'config-general' => array(

@@ -16,10 +16,12 @@ use Storage\UserStorage;
 
 abstract class AbstractSMController extends AbstractActionController
 {
-    const LOCATION_ADMIN_DASHBOARD  = 1;
+    const LOCATION_HOME				= 0;
+	const LOCATION_ADMIN_DASHBOARD  = 1;
     const LOCATION_ADMIN_ORDERS     = 2;
     const LOCATION_ADMIN_STAMPTYPES = 3;
     const LOCATION_ADMIN_CONFIG     = 4;
+    const LOCATION_ORDER_BEGIN		= 5;
 
     /**
      * @param MvcEvent $e

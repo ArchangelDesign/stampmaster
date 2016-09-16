@@ -24,7 +24,8 @@ class DisplayController extends AbstractSMController
 
     public function indexAction()
     {
-        return array();
+    	$this->layout()->setVariable('location', self::LOCATION_HOME);
+        return [];
     }
 
     /**
@@ -32,6 +33,7 @@ class DisplayController extends AbstractSMController
      */
     public function orderBeginAction()
     {
+		$this->layout()->setVariable('location', self::LOCATION_ORDER_BEGIN);
         return array();
     }
 

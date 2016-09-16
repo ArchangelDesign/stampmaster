@@ -17,8 +17,14 @@ use Zend\View\Model\ViewModel;
 
 class AdminController extends AbstractSMController
 {
+	private function _setLocation($location = self::LOCATION_ADMIN_DASHBOARD)
+	{
+		$this->layout()->setVariable('location', $location);
+	}
+
     public function dashboardAction()
     {
+    	$this->_setLocation();
         $userStorage = new UserStorage($this->serviceLocator->get('adb'));
         return array(
             'allUsers' => $userStorage->fetchAllUsers(),
@@ -28,6 +34,7 @@ class AdminController extends AbstractSMController
 
     public function ordersAction()
     {
+    	$this->_setLocation(self::LOCATION_ADMIN_ORDERS);
         return array(
             'location' => self::LOCATION_ADMIN_ORDERS,
         );
@@ -35,6 +42,7 @@ class AdminController extends AbstractSMController
 
     public function stampTypesAction()
     {
+    	$this->_setLocation(LOCATION_ADMIN_STAMPTYPES);
         return array(
             'location' => self::LOCATION_ADMIN_STAMPTYPES,
         );
@@ -79,5 +87,23 @@ class AdminController extends AbstractSMController
         echo \Common\XmlResponder::generalResponse($result['code'], $result['message']);
         return $vm;
     }
+
+    public function editStampTypeAction()
+	{
+		$request = $this->getRequest();
+
+		$id = $request->getQuery('id');
+
+		$storage = new StampStorage($this->serviceLocator->get('adb'));
+		$stamp = $storage->fetchStamp($id);
+		$result = [
+			'stamp' => $stamp,
+			'error' => false,
+		];
+		if (empty($stamp)) {
+			$result['error'] = true;
+		}
+		return $result;
+	}
 
 }
