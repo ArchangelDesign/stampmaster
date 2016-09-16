@@ -160,6 +160,11 @@ body {
     background-color: white;
     border: 1px solid silver;
     position: relative;
+    margin: 2px;
+}
+
+.stamp-type-box:hover {
+    background-color: #e8e8e8;
 }
 
 .stamp-type-box img {
