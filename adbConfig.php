@@ -36,12 +36,3 @@ return [
         // if not set, it defaults to true
     ]
 ];
-
-return array(
-    'driver' => 'pgsql',
-    'dbname' => 'mis3',
-    'dbuser' => 'admin',
-    'dbpass' => 'admin',
-    'prefix' => 'adb_',
-    'profiler' => true,
-);
