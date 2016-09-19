@@ -57,11 +57,28 @@ class StampStorage extends AbstractStorage
             'message' => $message,
         ];
     }
-    
+
+	/**
+	 * @param $id
+	 */
     public function deleteStampType($id)
     {
-        $this->_db->deleteRecords(['id' => $id]);
+        $this->_db->deleteRecords('stamp_types', ['id' => $id]);
     }
+
+	/**
+	 * @param array $record
+	 * @throws Exception
+	 */
+    public function updateStampType(array $record)
+	{
+		if (!isset($record['id']) || empty($record['id'])) {
+			throw new Exception("Invalid record. Missing record ID");
+		}
+		$record['date_modified'] = date('Y-m-d H:i:s', time());
+
+		$this->_db->update('stamp_types', $record);
+	}
     
     private function uploadThumbnail($path)
     {
@@ -144,6 +161,10 @@ class StampStorage extends AbstractStorage
                 break;
             case IMAGETYPE_BMP:
                 return imagecreatefromwbmp($path);
+                break;
+			case IMAGETYPE_PNG:
+				return imagecreatefrompng($path);
+				break;
         }
         return false;
     }
