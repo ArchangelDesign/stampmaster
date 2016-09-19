@@ -102,6 +102,9 @@ class DisplayController extends AbstractSMController
             $res = $storage->loginUser($data['username'], $data['password'], true);
 
             if ($res['result']) {
+            	if (!empty(SessionStorage::getNextRoute())) {
+            		return $this->redirect()->toUrl(SessionStorage::getNextRoute());
+				}
                 return $this->redirect()->toRoute('display-index');
             }
 

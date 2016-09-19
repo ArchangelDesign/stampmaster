@@ -10,13 +10,25 @@ namespace Admin\Controller;
 
 use Common\AbstractSMController;
 use Process\StorageProcess;
+use Storage\SessionStorage;
 use Storage\UserStorage;
 use Storage\StampStorage;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 
 class AdminController extends AbstractSMController
 {
+	public function onDispatch(MvcEvent $e)
+	{
+		if (!SessionStorage::userLoggedIn()) {
+			$route = (string)$e->getRequest()->getUri();
+			SessionStorage::setNextRoute($route);
+			return $this->redirect()->toRoute('login-user');
+		}
+		parent::onDispatch($e);
+	}
+
 	private function _setLocation($location = self::LOCATION_ADMIN_DASHBOARD)
 	{
 		$this->layout()->setVariable('location', $location);
@@ -91,15 +103,22 @@ class AdminController extends AbstractSMController
     public function editStampTypeAction()
 	{
 		$request = $this->getRequest();
+		$result = [];
 
 		$id = $request->getQuery('id');
-
 		$storage = new StampStorage($this->serviceLocator->get('adb'));
+
+		if ($request->isPost()) {
+			$postData = (array)$request->getPost();
+			$postData['id'] = $id;
+			$storage->updateStampType($postData);
+			$result['updated'] = true;
+		}
+
 		$stamp = $storage->fetchStamp($id);
-		$result = [
-			'stamp' => $stamp,
-			'error' => false,
-		];
+		$result['stamp'] = $stamp;
+		$result['error'] = false;
+
 		if (empty($stamp)) {
 			$result['error'] = true;
 		}

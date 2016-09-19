@@ -8,6 +8,44 @@
 		<?php
 			} else {
 		?>
+				<?php if (isset($updated) || $updated) { ?>
+					<div class="alert alert-success"><?php echo $this->translate('Record has been updated.')?><br>
+					<a href="<?php echo $this->url('admin-stamp-types')?>"><?php echo $this->translate('Back')?></a></div>
+					<?php
+				} ?>
+				<form method="POST">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Stamp name') ?></span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="stamp_name" value="<?php echo $stamp['stamp_name'] ?>">
+					</div>
+
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Description') ?></span>
+						<textarea name="description" class="form-control" style="height:200px"><?php echo $stamp['description']?></textarea>
+					</div>
+
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Manufacturer') ?></span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="manufacturer" value="<?php echo $stamp['manufacturer']?>">
+					</div>
+
+					<div class="input-group"  style="width: 200px; float:left;">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Mass') ?></span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="mass" value="<?php echo $stamp['mass'] ?>">
+					</div>
+
+					<div class="input-group"  style="width: 200px; float:left;">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Width') ?></span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="width" value="<?php echo $stamp['width']?>">
+					</div>
+
+					<div class="input-group"  style="width: 200px; float:left;">
+						<span class="input-group-addon" id="basic-addon3"><?php echo $this->translate('Height') ?></span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="height" value="<?php echo $stamp['height']?>">
+					</div>
+
+					<input type="submit" value="<?php echo $this->translate('Save')?>" class="btn btn-success">
+				</form>
 		<?php } ?>
 	</div>
 </div>
