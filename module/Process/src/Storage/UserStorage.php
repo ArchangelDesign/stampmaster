@@ -182,6 +182,7 @@ class UserStorage extends AbstractStorage
         SessionStorage::setValue('user-logged-in', true);
         SessionStorage::setValue('username', $userRecord['username']);
         SessionStorage::setValue('user-email', $userRecord['email']);
+        SessionStorage::setUserId($userRecord['id']);
 
         if ($storeSession) {
             $this->storeSession($userRecord);
