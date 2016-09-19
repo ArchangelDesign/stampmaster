@@ -17,4 +17,33 @@ class SessionStorage
         $sess = new \Zend\Session\Container(self::SESSION_NAMESPACE);
         return $sess->$key;
     }
+
+    public static function setUserId($uid)
+	{
+		self::setValue('user-id', $uid);
+	}
+
+	public static function getUserId()
+	{
+		self::getValue('user-id');
+	}
+
+	public static function userLoggedIn()
+	{
+		$v = self::getValue('user-logged-in');
+		if ($v !== true) {
+			return false;
+		}
+		return true;
+	}
+
+	public static function setNextRoute($route)
+	{
+		self::setValue('next-route', $route);
+	}
+
+	public static function getNextRoute()
+	{
+		return self::getValue('next-route');
+	}
 }
