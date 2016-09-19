@@ -25,7 +25,7 @@ class SessionStorage
 
 	public static function getUserId()
 	{
-		self::getValue('user-id');
+		return self::getValue('user-id');
 	}
 
 	public static function userLoggedIn()

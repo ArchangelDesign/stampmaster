@@ -192,6 +192,16 @@ body {
     text-align: center;
 }
 
+.admin-stamp-thumbnail {
+    width: 50px;
+    max-height: 100px;
+}
+
+.admin-stamp-large-image {
+    width: 150px;
+    max-height: 250px;
+}
+
 .config-table {
     margin: 0px;
     padding: 0px;

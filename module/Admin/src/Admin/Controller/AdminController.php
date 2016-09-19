@@ -89,7 +89,10 @@ class AdminController extends AbstractSMController
             return $this->redirect()->toRoute('');
         }
         
-        $data = $request->getPost();
+        $data = (array)$request->getPost();
+        $data['user_created'] = SessionStorage::getUserId();
+        $data['thumbnail'] = 'no-thumbnail.jpg';
+        $data['large_image'] = 'no-thumbnail.jpg';
         $storage = new StampStorage($this->serviceLocator->get('ADB'));
         $result = $storage->insertStampType($data);
         
@@ -111,6 +114,10 @@ class AdminController extends AbstractSMController
 		if ($request->isPost()) {
 			$postData = (array)$request->getPost();
 			$postData['id'] = $id;
+			if (!isset($postData['active'])) {
+				$postData['active'] = 0;
+			}
+			$postData['user_modified'] = SessionStorage::getUserId();
 			$storage->updateStampType($postData);
 			$result['updated'] = true;
 		}

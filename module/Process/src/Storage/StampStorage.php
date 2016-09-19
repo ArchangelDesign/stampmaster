@@ -35,7 +35,7 @@ class StampStorage extends AbstractStorage
             if (isset($_FILES['image'])) {
                 $imageFileName = $this->uploadImage($_FILES['image']['tmp_name']);
             } else {
-                $imageFileName = "no-image.jpg";
+                $imageFileName = "no-thumbnail.jpg";
             }
             
             $this->_db->update(
