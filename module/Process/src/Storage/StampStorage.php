@@ -8,6 +8,8 @@
 
 namespace Storage;
 
+use Common\Common;
+
 class StampStorage extends AbstractStorage
 {
     public function fetchAllStampTypes()
@@ -78,8 +80,16 @@ class StampStorage extends AbstractStorage
 		$record['date_modified'] = date('Y-m-d H:i:s', time());
 
 		$this->_db->update('stamp_types', $record);
+
+		if (isset($_FILES['thumbnail'])) {
+			$thumbnail = $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
+		}
 	}
-    
+
+	/**
+	 * @param string $path source path
+	 * @return bool|string uploaded filename
+	 */
     private function uploadThumbnail($path)
     {
         $imageInfo = getimagesize($path);
@@ -107,7 +117,7 @@ class StampStorage extends AbstractStorage
                 $ratio = $w/$h;
                 $resized = imagescale($image, 150 * $ratio, 150);
         }
-        $filename = md5(time()) . '.jpg';
+        $filename = md5(Common::generateRandomString(20)) . '.jpg';
         imagejpeg($resized, \SmConfig::imagePath . $filename, 40);
         imagedestroy($image);
         imagedestroy($resized);
@@ -141,7 +151,7 @@ class StampStorage extends AbstractStorage
                 $ratio = $w/$h;
                 $resized = imagescale($image, 900 * $ratio, 900);
         }
-        $filename = md5(time()) . '.jpg';
+        $filename = md5(Common::generateRandomString(20)) . '.jpg';
         imagejpeg($resized, \SmConfig::imagePath . $filename, 60);
         imagedestroy($image);
         imagedestroy($resized);
