@@ -8,13 +8,13 @@
 				<?php
 			} else {
 				?>
-				<?php if (isset($updated) || $updated) { ?>
+				<?php if (isset($updated) && $updated) { ?>
                     <div class="alert alert-success"><?php echo $this->translate('Record has been updated.') ?><br>
                         <a href="<?php echo $this->url('admin-stamp-types') ?>"><?php echo $this->translate('Back') ?></a>
                     </div>
 					<?php
 				} ?>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="input-group">
                         <span class="input-group-addon"
                               id="basic-addon3"><?php echo $this->translate('Stamp name') ?></span>

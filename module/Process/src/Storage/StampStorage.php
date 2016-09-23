@@ -82,7 +82,13 @@ class StampStorage extends AbstractStorage
 		$this->_db->update('stamp_types', $record);
 
 		if (isset($_FILES['thumbnail'])) {
+			$this->deleteThumbnail($record['id']);
 			$thumbnail = $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
+			$buffer = [
+				'id' => $record['id'],
+				'thumbnail' => $thumbnail,
+			];
+			$this->_db->update('stamp_types', $buffer);
 		}
 	}
 
@@ -123,6 +129,16 @@ class StampStorage extends AbstractStorage
         imagedestroy($resized);
         return $filename;
     }
+
+    private function deleteThumbnail($id)
+	{
+		$thumbnailName = $this->_db->fetchSingleValue('stamp_types', ['id' => $id], 'thumbnail');
+		if (!empty($thumbnailName)) {
+			if (file_exists(\SmConfig::imagePath . $thumbnailName)) {
+				unlink(\SmConfig::imagePath . $thumbnailName);
+			}
+		}
+	}
     
     private function uploadImage($path)
     {
