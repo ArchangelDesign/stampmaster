@@ -65,6 +65,8 @@ class StampStorage extends AbstractStorage
 	 */
     public function deleteStampType($id)
     {
+    	$this->deleteImage($id);
+    	$this->deleteThumbnail($id);
         $this->_db->deleteRecords('stamp_types', ['id' => $id]);
     }
 
@@ -81,7 +83,7 @@ class StampStorage extends AbstractStorage
 
 		$this->_db->update('stamp_types', $record);
 
-		if (isset($_FILES['thumbnail'])) {
+		if (isset($_FILES['thumbnail']) && !empty($_FILES['thumbnail']['tmp_name'])) {
 			$this->deleteThumbnail($record['id']);
 			$thumbnail = $this->uploadThumbnail($_FILES['thumbnail']['tmp_name']);
 			$buffer = [
@@ -90,6 +92,27 @@ class StampStorage extends AbstractStorage
 			];
 			$this->_db->update('stamp_types', $buffer);
 		}
+
+		if (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) {
+			$this->deleteImage($record['id']);
+			$image = $this->uploadImage($_FILES['image']['tmp_name']);
+			$buffer = [
+				'id' => $record['id'],
+				'large_image' => $image,
+			];
+			$this->_db->update('stamp_types', $buffer);
+		}
+	}
+
+	public function getAllManufacturers()
+	{
+		$manufacturers = $this->_db->executeRawQuery(
+			"select distinct(manufacturer) from {stamp_types} where active=1"
+		)->toArray();
+		foreach ($manufacturers as $k => $v) {
+			$manufacturers[$k] = $v['manufacturer'];
+		}
+		return $manufacturers;
 	}
 
 	/**
@@ -173,6 +196,16 @@ class StampStorage extends AbstractStorage
         imagedestroy($resized);
         return $filename;
     }
+
+	private function deleteImage($id)
+	{
+		$imageName = $this->_db->fetchSingleValue('stamp_types', ['id' => $id], 'large_image');
+		if (!empty($imageName)) {
+			if (file_exists(\SmConfig::imagePath . $imageName)) {
+				unlink(\SmConfig::imagePath . $imageName);
+			}
+		}
+	}
     
     private function loadImage($path) 
     {

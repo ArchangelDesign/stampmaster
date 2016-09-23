@@ -129,7 +129,25 @@ class AdminController extends AbstractSMController
 		if (empty($stamp)) {
 			$result['error'] = true;
 		}
+
 		return $result;
+	}
+
+	public function deleteStampTypeAction()
+	{
+		$request = $this->getRequest();
+		$id = $request->getQuery('id');
+
+		$storage = new StampStorage($this->serviceLocator->get('adb'));
+
+		if ($request->isPost()) {
+			$storage->deleteStampType($id);
+			return $this->redirect()->toRoute('admin-stamp-types');
+		}
+
+		return [
+			'stamp' => $storage->fetchStamp($id)
+		];
 	}
 
 }

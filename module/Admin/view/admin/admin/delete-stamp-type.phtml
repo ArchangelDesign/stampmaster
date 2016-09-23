@@ -1,0 +1,10 @@
+<div class="panel panel-danger">
+	<div class="panel-heading"><?php echo $this->translate('Deleting stamp type') ?></div>
+	<div class="panel-body">
+		<h3><?php echo $this->translate('Are you sure you want to delete this stamp type?');?></h3>
+		<form method="post">
+			<input class="btn btn-danger" type="submit" value="<?php echo $this->translate('Delete')?>">
+			<a class="btn btn-default" href="<?php echo $this->url('edit-stamp-type') . "?id=$stamp[id]"?>"><?php echo $this->translate('Cancel')?></a>
+		</form>
+	</div>
+</div>

@@ -85,6 +85,18 @@ return array(
 				),
 			),
 
+			'delete-stamp-type' => array(
+				'type'	=> 'Literal',
+				'options' => array(
+					'route'    => '/admin/delete-stamp-type',
+					'defaults' => array(
+						'__NAMESPACE__' => 'Admin\Controller',
+						'controller'    => 'Admin',
+						'action'        => 'deleteStampType',
+					),
+				),
+			),
+
             /* Configuration */
 
             'config-general' => array(

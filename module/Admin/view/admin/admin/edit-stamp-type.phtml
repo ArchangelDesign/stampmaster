@@ -74,11 +74,10 @@
 
                     <img class="admin-stamp-large-image" src="<?php echo $this->basePath('/') . \SmConfig::getImagePublicPath() . $stamp['large_image']?>">
                     <input type="file" name="image">
+                    <hr>
                     <input type="submit" value="<?php echo $this->translate('Save') ?>" class="btn btn-success pull-right">
+                    <a class="btn btn-danger" href="<?php echo $this->url('delete-stamp-type') . "?id=$stamp[id]"?>"><?php echo $this->translate('Delete stamp type')?></a>
                 </form>
 			<?php } ?>
     </div>
 </div>
-<?php
-
-var_dump($stamp);
