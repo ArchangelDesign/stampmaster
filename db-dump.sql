@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.49, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: sm
 -- ------------------------------------------------------
--- Server version	5.5.46-0ubuntu0.14.04.2
+-- Server version	5.5.49-0ubuntu0.14.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `sm_config` (
   `extended` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `sm_config` (
 
 LOCK TABLES `sm_config` WRITE;
 /*!40000 ALTER TABLE `sm_config` DISABLE KEYS */;
+INSERT INTO `sm_config` VALUES (1,'cacheConfig','1',0),(2,'company-name','The Stamp Company',0),(3,'page-title','The STamp Company Store Online',0);
 /*!40000 ALTER TABLE `sm_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,6 +67,32 @@ LOCK TABLES `sm_config_extension` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sm_price_list`
+--
+
+DROP TABLE IF EXISTS `sm_price_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_price_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stamp_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_price_list`
+--
+
+LOCK TABLES `sm_price_list` WRITE;
+/*!40000 ALTER TABLE `sm_price_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_price_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sm_stamp_types`
 --
 
@@ -89,7 +116,7 @@ CREATE TABLE `sm_stamp_types` (
   `active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +126,32 @@ CREATE TABLE `sm_stamp_types` (
 LOCK TABLES `sm_stamp_types` WRITE;
 /*!40000 ALTER TABLE `sm_stamp_types` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sm_stamp_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sm_storage`
+--
+
+DROP TABLE IF EXISTS `sm_storage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_storage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stamp_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `state` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_storage`
+--
+
+LOCK TABLES `sm_storage` WRITE;
+/*!40000 ALTER TABLE `sm_storage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_storage` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -135,7 +188,7 @@ CREATE TABLE `sm_users` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AVG_ROW_LENGTH=16384;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AVG_ROW_LENGTH=16384;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +197,36 @@ CREATE TABLE `sm_users` (
 
 LOCK TABLES `sm_users` WRITE;
 /*!40000 ALTER TABLE `sm_users` DISABLE KEYS */;
+INSERT INTO `sm_users` VALUES (1,'admin','admin@admin.pl','$2y$10$g4KTo/EM1lZu1L1QZEzeveYVN5L.3IXoMVlB3mtTTZ4/lfxMo.9Gq',NULL,NULL,'2016-09-19 14:10:11',1,'','3eff93d20a5522ffff67268dc',NULL,NULL,'','','','','',1,'','',NULL,NULL);
 /*!40000 ALTER TABLE `sm_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sm_users_groups`
+--
+
+DROP TABLE IF EXISTS `sm_users_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_users_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) DEFAULT NULL,
+  `discount` float DEFAULT NULL,
+  `expires` tinyint(4) DEFAULT NULL,
+  `default` tinyint(4) DEFAULT NULL,
+  `expiration` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_users_groups`
+--
+
+LOCK TABLES `sm_users_groups` WRITE;
+/*!40000 ALTER TABLE `sm_users_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sm_users_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -156,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-09  7:01:16
+-- Dump completed on 2016-09-26 10:16:32
